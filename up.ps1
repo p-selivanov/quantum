@@ -1,0 +1,1 @@
+docker compose -f compose-infra.yaml --project-name quantum up -d

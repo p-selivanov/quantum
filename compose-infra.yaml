@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  localstack:
+    image: localstack/localstack:1.4.0
+    container_name: localstack
+    ports:
+      - 4566:4566
+    volumes:
+      - ./localstack-init.sh:/etc/localstack/init/ready.d/localstack-init.sh
+      - localstack-data:/var/lib/localstack
+    working_dir: /home/dynamodblocal
+
+volumes:
+  localstack-data:
+    name: quantum-localstack-data

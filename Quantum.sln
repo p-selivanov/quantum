@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{150031E8-82EE-427A-BF91-423356A1AD89}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7E5703C6-C81D-4C78-8B58-B88F7C21E090}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_solution-items", "_solution-items", "{E2BCA3D5-4F55-473B-935F-AA53890549E8}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.gitignore = .gitignore
+		compose-infra.yaml = compose-infra.yaml
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Lib.Common", "src\Quantum.Lib.Common\Quantum.Lib.Common.csproj", "{DFB2C96A-ACAB-4555-8A40-04A2B5C5E6ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Customer.Api", "src\Quantum.Customer.Api\Quantum.Customer.Api.csproj", "{508FF090-9AFF-45C3-9872-5D53455A03D0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Lib.AspNet", "src\Quantum.Lib.AspNet\Quantum.Lib.AspNet.csproj", "{45171DD2-7549-4E88-8DEA-19C33A0D3AE7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DFB2C96A-ACAB-4555-8A40-04A2B5C5E6ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFB2C96A-ACAB-4555-8A40-04A2B5C5E6ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFB2C96A-ACAB-4555-8A40-04A2B5C5E6ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFB2C96A-ACAB-4555-8A40-04A2B5C5E6ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{508FF090-9AFF-45C3-9872-5D53455A03D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{508FF090-9AFF-45C3-9872-5D53455A03D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{508FF090-9AFF-45C3-9872-5D53455A03D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{508FF090-9AFF-45C3-9872-5D53455A03D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45171DD2-7549-4E88-8DEA-19C33A0D3AE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45171DD2-7549-4E88-8DEA-19C33A0D3AE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45171DD2-7549-4E88-8DEA-19C33A0D3AE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45171DD2-7549-4E88-8DEA-19C33A0D3AE7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DFB2C96A-ACAB-4555-8A40-04A2B5C5E6ED} = {150031E8-82EE-427A-BF91-423356A1AD89}
+		{508FF090-9AFF-45C3-9872-5D53455A03D0} = {150031E8-82EE-427A-BF91-423356A1AD89}
+		{45171DD2-7549-4E88-8DEA-19C33A0D3AE7} = {150031E8-82EE-427A-BF91-423356A1AD89}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2CC2E628-0071-42D7-83D5-6469BBFB8093}
+	EndGlobalSection
+EndGlobal
