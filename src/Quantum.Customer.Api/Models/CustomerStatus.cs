@@ -3,5 +3,6 @@
 public enum CustomerStatus
 {
     Lead,
-    Client,
+    Active,
+    Suspended,
 }
