@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
-using Quantum.Customer.Api.Utils;
 using Quantum.Customer.Models;
+using Quantum.Lib.DynamoDb;
 
 namespace Quantum.Customer.Repositories;
 
@@ -26,7 +26,7 @@ public class CustomerRepository
             TableName = TableName,
             Key =
             {
-                ["Id"] = DynamoDbValue.FromString(customerId),
+                ["Id"] = AttributeValueFactory.FromString(customerId),
             },
         });
 
@@ -37,12 +37,12 @@ public class CustomerRepository
 
         var customer = new CustomerDetail
         {
-            Id = response.Item["Id"].S,
-            EmailAddress = response.Item["EmailAddress"].S,
-            FirstName = response.Item["FirstName"].S,
-            LastName = response.Item["LastName"].S,
-            PhoneNumber = response.Item["PhoneNumber"].S,
-            Country = response.Item["Country"].S,
+            Id = response.Item["Id"].AsString(),
+            EmailAddress = response.Item["EmailAddress"].AsString(),
+            FirstName = response.Item["FirstName"].AsString(),
+            LastName = response.Item["LastName"].AsString(),
+            PhoneNumber = response.Item["PhoneNumber"].AsString(),
+            Country = response.Item["Country"].AsString(),
             Status = response.Item["Status"].AsEnum<CustomerStatus>(),
             CreatedAt = response.Item["CreatedAt"].AsTimestamp(),
             UpdatedAt = response.Item["UpdatedAt"].AsTimestamp(),
@@ -58,17 +58,17 @@ public class CustomerRepository
         var response = await _client.PutItemAsync(new PutItemRequest
         {
             TableName = TableName,
-            Item = new Dictionary<string, AttributeValue>
+            Item =
             {
-                ["Id"] = DynamoDbValue.FromString(customer.Id),
-                ["EmailAddress"] = DynamoDbValue.FromString(customer.EmailAddress),
-                ["FirstName"] = DynamoDbValue.FromString(customer.FirstName),
-                ["LastName"] = DynamoDbValue.FromString(customer.LastName),
-                ["PhoneNumber"] = DynamoDbValue.FromString(customer.PhoneNumber),
-                ["Country"] = DynamoDbValue.FromString(customer.Country),
-                ["Status"] = DynamoDbValue.FromEnum(customer.Status),
-                ["CreatedAt"] = DynamoDbValue.FromTimestamp(timestamp),
-                ["UpdatedAt"] = DynamoDbValue.FromTimestamp(timestamp),
+                ["Id"] = AttributeValueFactory.FromString(customer.Id),
+                ["EmailAddress"] = AttributeValueFactory.FromString(customer.EmailAddress),
+                ["FirstName"] = AttributeValueFactory.FromString(customer.FirstName),
+                ["LastName"] = AttributeValueFactory.FromString(customer.LastName),
+                ["PhoneNumber"] = AttributeValueFactory.FromString(customer.PhoneNumber),
+                ["Country"] = AttributeValueFactory.FromString(customer.Country),
+                ["Status"] = AttributeValueFactory.FromEnum(customer.Status),
+                ["CreatedAt"] = AttributeValueFactory.FromTimestamp(timestamp),
+                ["UpdatedAt"] = AttributeValueFactory.FromTimestamp(timestamp),
             },
         });
 
@@ -84,16 +84,16 @@ public class CustomerRepository
                 TableName = TableName,
                 Key =
                 {
-                    ["Id"] = DynamoDbValue.FromString(customerId),
+                    ["Id"] = AttributeValueFactory.FromString(customerId),
                 },
                 UpdateExpression = "SET FirstName = :firstName, LastName = :lastName, UpdatedAt = :timestamp",
                 ConditionExpression = "Id = :id",
                 ExpressionAttributeValues =
                 {
-                    [":id"] = DynamoDbValue.FromString(customerId),
-                    [":firstName"] = DynamoDbValue.FromString(firstName),
-                    [":lastName"] = DynamoDbValue.FromString(lastName),
-                    [":timestamp"] = DynamoDbValue.FromTimestamp(DateTime.UtcNow),
+                    [":id"] = AttributeValueFactory.FromString(customerId),
+                    [":firstName"] = AttributeValueFactory.FromString(firstName),
+                    [":lastName"] = AttributeValueFactory.FromString(lastName),
+                    [":timestamp"] = AttributeValueFactory.FromTimestamp(DateTime.UtcNow),
                 },
             });
 
@@ -114,15 +114,15 @@ public class CustomerRepository
                 TableName = TableName,
                 Key =
                 {
-                    ["Id"] = DynamoDbValue.FromString(customerId),
+                    ["Id"] = AttributeValueFactory.FromString(customerId),
                 },
                 UpdateExpression = "SET EmailAddress = :emailAddress, UpdatedAt = :timestamp",
                 ConditionExpression = "Id = :id",
                 ExpressionAttributeValues =
                 {
-                    [":id"] = DynamoDbValue.FromString(customerId),
-                    [":emailAddress"] = DynamoDbValue.FromString(emailAddress),
-                    [":timestamp"] = DynamoDbValue.FromTimestamp(DateTime.UtcNow),
+                    [":id"] = AttributeValueFactory.FromString(customerId),
+                    [":emailAddress"] = AttributeValueFactory.FromString(emailAddress),
+                    [":timestamp"] = AttributeValueFactory.FromTimestamp(DateTime.UtcNow),
                 },
             });
 
@@ -143,15 +143,15 @@ public class CustomerRepository
                 TableName = TableName,
                 Key =
                 {
-                    ["Id"] = DynamoDbValue.FromString(customerId),
+                    ["Id"] = AttributeValueFactory.FromString(customerId),
                 },
                 UpdateExpression = "SET PhoneNumber = :phoneNumber, UpdatedAt = :timestamp",
                 ConditionExpression = "Id = :id",
                 ExpressionAttributeValues =
                 {
-                    [":id"] = DynamoDbValue.FromString(customerId),
-                    [":phoneNumber"] = DynamoDbValue.FromString(phoneNumber),
-                    [":timestamp"] = DynamoDbValue.FromTimestamp(DateTime.UtcNow),
+                    [":id"] = AttributeValueFactory.FromString(customerId),
+                    [":phoneNumber"] = AttributeValueFactory.FromString(phoneNumber),
+                    [":timestamp"] = AttributeValueFactory.FromTimestamp(DateTime.UtcNow),
                 },
             });
 
@@ -172,15 +172,15 @@ public class CustomerRepository
                 TableName = TableName,
                 Key =
                 {
-                    ["Id"] = DynamoDbValue.FromString(customerId),
+                    ["Id"] = AttributeValueFactory.FromString(customerId),
                 },
                 UpdateExpression = "SET Country = :country, UpdatedAt = :timestamp",
                 ConditionExpression = "Id = :id",
                 ExpressionAttributeValues =
                 {
-                    [":id"] = DynamoDbValue.FromString(customerId),
-                    [":country"] = DynamoDbValue.FromString(country),
-                    [":timestamp"] = DynamoDbValue.FromTimestamp(DateTime.UtcNow),
+                    [":id"] = AttributeValueFactory.FromString(customerId),
+                    [":country"] = AttributeValueFactory.FromString(country),
+                    [":timestamp"] = AttributeValueFactory.FromTimestamp(DateTime.UtcNow),
                 },
             });
 

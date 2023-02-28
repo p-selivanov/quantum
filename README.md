@@ -69,8 +69,11 @@ docker build . -f ./src/Quantum.Customer.Api/Dockerfile -t quantum-customer-api:
 ```
 
 TODO
-- Account service
+- ID format
+- Dockerfiles
+- Account creation
 - Telemetry
 - Load Simulation
 - Unique email
 - System.Text.Json
+- Unite models and DTOs?

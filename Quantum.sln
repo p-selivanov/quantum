@@ -21,6 +21,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Customer.Api", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Lib.AspNet", "src\Quantum.Lib.AspNet\Quantum.Lib.AspNet.csproj", "{45171DD2-7549-4E88-8DEA-19C33A0D3AE7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Account.Api", "src\Quantum.Account.Api\Quantum.Account.Api.csproj", "{65D93957-A214-42FB-908B-8D5C5223AF00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Lib.DynamoDb", "src\Quantum.Lib.DynamoDb\Quantum.Lib.DynamoDb.csproj", "{43C813C6-C73F-4C93-B0AD-5553CFB23B11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{45171DD2-7549-4E88-8DEA-19C33A0D3AE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45171DD2-7549-4E88-8DEA-19C33A0D3AE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45171DD2-7549-4E88-8DEA-19C33A0D3AE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65D93957-A214-42FB-908B-8D5C5223AF00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65D93957-A214-42FB-908B-8D5C5223AF00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65D93957-A214-42FB-908B-8D5C5223AF00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65D93957-A214-42FB-908B-8D5C5223AF00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43C813C6-C73F-4C93-B0AD-5553CFB23B11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43C813C6-C73F-4C93-B0AD-5553CFB23B11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43C813C6-C73F-4C93-B0AD-5553CFB23B11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43C813C6-C73F-4C93-B0AD-5553CFB23B11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +59,8 @@ Global
 		{DFB2C96A-ACAB-4555-8A40-04A2B5C5E6ED} = {150031E8-82EE-427A-BF91-423356A1AD89}
 		{508FF090-9AFF-45C3-9872-5D53455A03D0} = {150031E8-82EE-427A-BF91-423356A1AD89}
 		{45171DD2-7549-4E88-8DEA-19C33A0D3AE7} = {150031E8-82EE-427A-BF91-423356A1AD89}
+		{65D93957-A214-42FB-908B-8D5C5223AF00} = {150031E8-82EE-427A-BF91-423356A1AD89}
+		{43C813C6-C73F-4C93-B0AD-5553CFB23B11} = {150031E8-82EE-427A-BF91-423356A1AD89}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2CC2E628-0071-42D7-83D5-6469BBFB8093}

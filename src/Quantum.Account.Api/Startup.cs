@@ -1,16 +1,15 @@
-using System.Reflection;
+﻿using System.Reflection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Converters;
-using Quantum.Customer.Api.Services;
-using Quantum.Customer.Repositories;
+using Quantum.Account.Api.Repositories;
 using Quantum.Lib.AspNet;
 using Quantum.Lib.DynamoDb;
 
-namespace Quantum.Customer.Api;
+namespace Quantum.Account.Api;
 
 public class Startup
 {
@@ -25,8 +24,8 @@ public class Startup
     {
         services.AddDynamoDbClient(Configuration.GetValue<string>("DynamoDB:Region"));
 
-        services.AddScoped<CustomerRepository>();
-        services.AddScoped<CustomerService>();
+        services.AddScoped<AccountRepository>();
+        services.AddScoped<TransactionRepository>();
 
         services
             .AddControllers()

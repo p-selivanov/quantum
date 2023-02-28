@@ -1,10 +1,20 @@
 ﻿using System;
 using Amazon.DynamoDBv2.Model;
 
-namespace Quantum.Customer.Api.Utils;
+namespace Quantum.Lib.DynamoDb;
 
-public static class DynamoDbAttributeValueExtensions
+public static class AttributeValueExtensions
 {
+    public static string AsString(this AttributeValue value)
+    {
+        return value.S;
+    }
+
+    public static decimal AsDecimal(this AttributeValue value)
+    {
+        return decimal.Parse(value.N);
+    }
+
     public static TEnum AsEnum<TEnum>(this AttributeValue value)
         where TEnum : struct
     {

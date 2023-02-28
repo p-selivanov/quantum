@@ -1,9 +1,9 @@
 ﻿using System;
 using Amazon.DynamoDBv2.Model;
 
-namespace Quantum.Customer.Api.Utils;
+namespace Quantum.Lib.DynamoDb;
 
-public static class DynamoDbValue
+public static class AttributeValueFactory
 {
     public static AttributeValue FromString(string value)
     {
@@ -16,6 +16,22 @@ public static class DynamoDbValue
         }
 
         return new AttributeValue(value);
+    }
+
+    public static AttributeValue FromInt(int value)
+    {
+        return new AttributeValue
+        {
+            N = value.ToString(),
+        };
+    }
+
+    public static AttributeValue FromDecimal(decimal value)
+    {
+        return new AttributeValue
+        {
+            N = value.ToString(),
+        };
     }
 
     public static AttributeValue FromEnum<TEnum>(TEnum value)

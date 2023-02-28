@@ -17,10 +17,10 @@ public class CustomerController : ControllerBase
         _customerService = customerService;
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Dtos.Customer>> GetCustomer(string id)
+    [HttpGet("{customerId}")]
+    public async Task<ActionResult<Dtos.Customer>> GetCustomer(string customerId)
     {
-        var customer = await _customerService.GetCustomerAsync(id);
+        var customer = await _customerService.GetCustomerAsync(customerId);
         if (customer is null)
         {
             return NotFound();
@@ -36,31 +36,31 @@ public class CustomerController : ControllerBase
         var customerDetail = request.ToModel();
         var customerId = await _customerService.CreateCustomerAsync(customerDetail);
 
-        return CreatedAtAction(nameof(GetCustomer), new { id = customerId }, new { id = customerId });
+        return CreatedAtAction(nameof(GetCustomer), new { customerId }, new { customerId });
     }
 
-    [HttpPatch("{id}")]
-    public async Task<ActionResult> PatchCustomer(string id, Dtos.CustomerPatchRequest request)
+    [HttpPatch("{customerId}")]
+    public async Task<ActionResult> PatchCustomer(string customerId, Dtos.CustomerPatchRequest request)
     {
         if (request.EmailAddress.IsSpecified)
         {
-            await _customerService.UpdateCustomerEmailAddressAsync(id, request.EmailAddress.Value);
+            await _customerService.UpdateCustomerEmailAddressAsync(customerId, request.EmailAddress.Value);
         }
 
         if (request.FirstName.IsSpecified ||
             request.LastName.IsSpecified)
         {
-            await _customerService.UpdateCustomerNameAsync(id, request.FirstName.Value, request.LastName.Value);
+            await _customerService.UpdateCustomerNameAsync(customerId, request.FirstName.Value, request.LastName.Value);
         }
 
         if (request.PhoneNumber.IsSpecified)
         {
-            await _customerService.UpdateCustomerPhoneNumberAsync(id, request.PhoneNumber.Value);
+            await _customerService.UpdateCustomerPhoneNumberAsync(customerId, request.PhoneNumber.Value);
         }
 
         if (request.Country.IsSpecified)
         {
-            var result = await _customerService.UpdateCustomerCountryAsync(id, request.Country.Value);
+            var result = await _customerService.UpdateCustomerCountryAsync(customerId, request.Country.Value);
             if (result.IsFailure)
             {
                 return result.ToActionResult();

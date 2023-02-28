@@ -3,7 +3,7 @@ using Amazon;
 using Amazon.DynamoDBv2;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Quantum.Customer.Api.Infrastructure;
+namespace Quantum.Lib.DynamoDb;
 
 public static class ServiceCollectionExtensions
 {
