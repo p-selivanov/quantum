@@ -19,7 +19,7 @@ public class Customer
 
     public CustomerStatus Status { get; set; }
 
-    public DateTime CreationTimestamp { get; set; }
+    public DateTime CreatedAt { get; set; }
 
-    public DateTime UpdateTimestamp { get; set; }
+    public DateTime UpdatedAt { get; set; }
 }

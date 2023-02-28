@@ -67,3 +67,10 @@ Build commands:
 ```
 docker build . -f ./src/Quantum.Customer.Api/Dockerfile -t quantum-customer-api:1.0.1
 ```
+
+TODO
+- Account service
+- Telemetry
+- Load Simulation
+- Unique email
+- System.Text.Json

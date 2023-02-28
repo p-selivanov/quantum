@@ -23,9 +23,6 @@ public class CustomerService
     public async Task<string> CreateCustomerAsync(CustomerDetail customer)
     {
         customer.Id = Guid.NewGuid().ToString();
-        customer.CreationTimestamp = DateTime.UtcNow;
-        customer.UpdateTimestamp = DateTime.UtcNow;
-
         var customerId = await _customerRepository.CreateCustomerAsync(customer);
 
         return customerId;

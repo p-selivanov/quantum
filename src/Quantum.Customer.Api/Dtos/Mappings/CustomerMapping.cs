@@ -13,7 +13,7 @@ public static class CustomerMapping
         PhoneNumber = model.PhoneNumber,
         Country = model.Country,
         Status = model.Status,
-        CreationTimestamp = model.CreationTimestamp,
-        UpdateTimestamp = model.UpdateTimestamp,
+        CreatedAt = model.CreatedAt,
+        UpdatedAt = model.UpdatedAt,
     };
 }
