@@ -4,11 +4,16 @@ namespace Quantum.Customer.Api.Dtos.Mappings;
 
 public static class CustomerMapping
 {
-    public static Customer ToDto(this CustomerDetail modelCustomer) => new()
+    public static Customer ToDto(this CustomerDetail model) => new()
     {
-        Id = modelCustomer.Id,
-        FirstName = modelCustomer.FirstName,
-        LastName = modelCustomer.LastName,
-        Status = modelCustomer.Status,
+        Id = model.Id,
+        EmailAddress = model.EmailAddress,
+        FirstName = model.FirstName,
+        LastName = model.LastName,
+        PhoneNumber = model.PhoneNumber,
+        Country = model.Country,
+        Status = model.Status,
+        CreationTimestamp = model.CreationTimestamp,
+        UpdateTimestamp = model.UpdateTimestamp,
     };
 }

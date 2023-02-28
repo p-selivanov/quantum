@@ -1,6 +1,6 @@
 # Quantum
 
-Quantum is an experimental PoC system. It evaluates a few approaches to microservices design.
+Quantum is an experimental PoC project. It evaluates a few approaches to microservices design.
 
 The system imitates an imaginary investment bank that is unrealistically profitable. 
 Any user can register and deposit some funds. 
@@ -27,8 +27,8 @@ This imaginery system is intended to highliht the performance and consistency ch
 - Deposit fee is configurable (2% by default).
 - Withdrawal fee is configurable (10% by default).
 - For customers from Ukraine fees are halved.
-- The system generates interest on deposit of 0.1% every 2 minutes.
-- All amounts are calculated and stored with 8 decimal places.
+- The system generates interest on deposit of 0.1% every 2 minutes. It is configurable.
+- All amounts are calculated and stored with 8 decimal places. If calculation produces more decimal places - they are rounded down.
 
 Note: for simplicity, all API calls will be anonymous, no authentication is performed. The distinction between customers and managers is artificial.
 

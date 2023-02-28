@@ -1,11 +1,16 @@
-﻿using Quantum.Customer.Models;
-using Quantum.Lib.Common;
+﻿using Quantum.Lib.Common;
 
 namespace Quantum.Customer.Api.Dtos;
 
 public class CustomerPatchRequest
 {
-    public Specifiable<CustomerStatus> Type { get; set; }
+    public Specifiable<string> EmailAddress { get; set; }
 
-    public Specifiable<int?> AgentId { get; set; }
+    public Specifiable<string> FirstName { get; set; }
+
+    public Specifiable<string> LastName { get; set; }
+
+    public Specifiable<string> Country { get; set; }
+
+    public Specifiable<string> PhoneNumber { get; set; }
 }

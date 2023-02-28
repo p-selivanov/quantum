@@ -1,112 +1,59 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using Quantum.Customer.Models;
+using Quantum.Customer.Repositories;
+using Quantum.Lib.Common;
 
 namespace Quantum.Customer.Api.Services;
 
 public class CustomerService
 {
-    //public CustomerService(AmazonDynamoDBClient dbClient)
-    //{
-    //    _dbClient = dbClient;
-    //}
+    private readonly CustomerRepository _customerRepository;
 
-    //public async Task<Dictionary<string, AttributeValue>> GetCustomerAsync(string customerId)
-    //{
-    //    var response = await _dbClient.GetItemAsync(new GetItemRequest
-    //    {
-    //        TableName = "Customers",
-    //        Key = new Dictionary<string, AttributeValue>
-    //        {
-    //            ["Id"] = new AttributeValue(customerId),
-    //        },
-    //    });
+    public CustomerService(CustomerRepository customerRepository)
+    {
+        _customerRepository = customerRepository;
+    }
 
-    //    return response.Item;
-    //}
+    public Task<CustomerDetail> GetCustomerAsync(string customerId)
+    {
+        return _customerRepository.GetCustomerAsync(customerId);
+    }
 
-    //public async Task<string> CreateCustomerAsync(string firstName, string lastName)
-    //{
-    //    var customer = new Models.Customer
-    //    {
-    //        Id = Guid.NewGuid().ToString(),
-    //        FirstName = firstName,
-    //        LastName = lastName,
-    //        Status = Models.CustomerStatus.Lead,
-    //    };
+    public async Task<string> CreateCustomerAsync(CustomerDetail customer)
+    {
+        customer.Id = Guid.NewGuid().ToString();
+        customer.CreationTimestamp = DateTime.UtcNow;
+        customer.UpdateTimestamp = DateTime.UtcNow;
 
-    //    var response = await _dbClient.PutItemAsync(new PutItemRequest
-    //    {
-    //        TableName = "Customers",
-    //    });
+        var customerId = await _customerRepository.CreateCustomerAsync(customer);
 
-    //    return customer.Id;
-    //}
+        return customerId;
+    }
 
-    //public async Task<OperationResult> UpdateCustomerTypeAsync(int customerId, CustomerStatus type)
-    //{
-    //    var customer = await this.dbContext.Customers
-    //        .FirstOrDefaultAsync(x => x.Id == customerId);
+    public Task UpdateCustomerNameAsync(string customerId, string firstName, string lastName)
+    {
+        return _customerRepository.UpdateCustomerNameAsync(customerId, firstName, lastName);
+    }
 
-    //    if (customer is null)
-    //    {
-    //        return OperationResult.NotFound();
-    //    }
+    public Task UpdateCustomerEmailAddressAsync(string customerId, string emailAddress)
+    {
+        return _customerRepository.UpdateCustomerEmailAddressAsync(customerId, emailAddress);
+    }
 
-    //    if (customer.Type == type)
-    //    {
-    //        return OperationResult.Failure($"Customer type is already '{customer.Type}'.");
-    //    }
+    public Task UpdateCustomerPhoneNumberAsync(string customerId, string phoneNumber)
+    {
+        return _customerRepository.UpdateCustomerPhoneNumberAsync(customerId, phoneNumber);
+    }
 
-    //    if (customer.Type == CustomerStatus.Lead &&
-    //        type == CustomerStatus.Client)
-    //    {
-    //        customer.Type = type;
-    //        customer.TradingAccountId = GenerateTradingAccountId();
+    public async Task<OperationResult> UpdateCustomerCountryAsync(string customerId, string country)
+    {
+        var isUpdated = await _customerRepository.UpdateCustomerCountryAsync(customerId, country);
+        if (isUpdated == false)
+        {
+            return OperationResult.NotFound();
+        }
 
-    //        await this.dbContext.SaveChangesAsync();
-
-    //        return OperationResult.Success();
-    //    }
-
-    //    return OperationResult.Failure($"Converting '{customer.Type}' to '{type}' is not allowed.");
-    //}
-
-    //public async Task<OperationResult> UpdateCustomerAgentAsync(int customerId, int? agentId)
-    //{
-    //    var customer = await this.dbContext.Customers
-    //        .FirstOrDefaultAsync(x => x.Id == customerId);
-
-    //    if (customer is null)
-    //    {
-    //        return OperationResult.NotFound();
-    //    }
-
-    //    if (agentId.HasValue)
-    //    {
-    //        //var agent = await GetAgentAsync(agentId.Value);
-    //        //if (agent is null)
-    //        //{
-    //        //    return OperationResult.Failure($"Agent with ID {agentId} is not found.");
-    //        //}
-
-    //        customer.AgentId = agentId;
-    //        await this.dbContext.SaveChangesAsync();
-
-    //        //await NotifyAgentCustomerAssignedAsync(agent, customer.Id, customer.Name);
-    //    }
-    //    else
-    //    {
-    //        customer.AgentId = null;
-    //        await this.dbContext.SaveChangesAsync();
-    //    }
-
-    //    return OperationResult.Success();
-    //}
-
-    //private string GenerateTradingAccountId()
-    //{
-    //    var rnd = new Random();
-    //    return $"TA-{rnd.Next(10_000):0000}";
-    //}
+        return OperationResult.Success();
+    }
 }

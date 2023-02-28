@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Quantum.Customer.Api.Dtos.Mappings;
-using Quantum.Customer.Repositories;
+using Quantum.Customer.Api.Services;
+using Quantum.Lib.AspNet;
 
 namespace Quantum.Customer.Api.Controllers;
 
@@ -11,25 +10,23 @@ namespace Quantum.Customer.Api.Controllers;
 [Route("customers")]
 public class CustomerController : ControllerBase
 {
-    private readonly CustomerRepository _customerRepository;
+    private readonly CustomerService _customerService;
 
-    public CustomerController(CustomerRepository customerRepository)
+    public CustomerController(CustomerService customerService)
     {
-        _customerRepository = customerRepository;
+        _customerService = customerService;
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<IEnumerable<Dtos.Customer>>> GetCustomer(string id)
+    public async Task<ActionResult<Dtos.Customer>> GetCustomer(string id)
     {
-        var customer = await _customerRepository.GetCustomerAsync(id);
-
+        var customer = await _customerService.GetCustomerAsync(id);
         if (customer is null)
         {
             return NotFound();
         }
 
         var customerDto = customer.ToDto();
-
         return Ok(customerDto);
     }
 
@@ -37,36 +34,39 @@ public class CustomerController : ControllerBase
     public async Task<ActionResult> CreateCustomer(Dtos.CustomerCreateRequest request)
     {
         var customerDetail = request.ToModel();
-        customerDetail.Id = Guid.NewGuid().ToString();
-        customerDetail.CreationTimestamp = DateTime.UtcNow;
-        customerDetail.UpdateTimestamp = DateTime.UtcNow;
-
-        var customerId = await _customerRepository.CreateCustomerAsync(customerDetail);
+        var customerId = await _customerService.CreateCustomerAsync(customerDetail);
 
         return CreatedAtAction(nameof(GetCustomer), new { id = customerId }, new { id = customerId });
     }
 
-    //[HttpPatch("{id}")]
-    //public async Task<ActionResult> PatchCustomer(int id, Dtos.CustomerPatchRequest request)
-    //{
-    //    if (request.Type.IsSpecified)
-    //    {
-    //        var result = await this.customerService.UpdateCustomerTypeAsync(id, request.Type.Value);
-    //        if (result.IsFailure)
-    //        {
-    //            return result.ToActionResult();
-    //        }
-    //    }
+    [HttpPatch("{id}")]
+    public async Task<ActionResult> PatchCustomer(string id, Dtos.CustomerPatchRequest request)
+    {
+        if (request.EmailAddress.IsSpecified)
+        {
+            await _customerService.UpdateCustomerEmailAddressAsync(id, request.EmailAddress.Value);
+        }
 
-    //    if (request.AgentId.IsSpecified)
-    //    {
-    //        var result = await this.customerService.UpdateCustomerAgentAsync(id, request.AgentId.Value);
-    //        if (result.IsFailure)
-    //        {
-    //            return result.ToActionResult();
-    //        }
-    //    }
+        if (request.FirstName.IsSpecified ||
+            request.LastName.IsSpecified)
+        {
+            await _customerService.UpdateCustomerNameAsync(id, request.FirstName.Value, request.LastName.Value);
+        }
 
-    //    return NoContent();
-    //}
+        if (request.PhoneNumber.IsSpecified)
+        {
+            await _customerService.UpdateCustomerPhoneNumberAsync(id, request.PhoneNumber.Value);
+        }
+
+        if (request.Country.IsSpecified)
+        {
+            var result = await _customerService.UpdateCustomerCountryAsync(id, request.Country.Value);
+            if (result.IsFailure)
+            {
+                return result.ToActionResult();
+            }
+        }
+
+        return NoContent();
+    }
 }
