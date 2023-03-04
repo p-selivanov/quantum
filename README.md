@@ -77,3 +77,36 @@ TODO
 - Unique email
 - System.Text.Json
 - Unite models and DTOs?
+
+
+awslocal iam create-role `
+  --role-name dynamo-stream-consumer `
+  --assume-role-policy-document '{"Version": "2012-10-17", "Statement": [{ "Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"}, "Action": "sts:AssumeRole"}]}'
+
+awslocal iam attach-role-policy `
+  --role-name dynamo-stream-consumer `
+  --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+awslocal lambda invoke `
+  --function-name customer-stream-consumer `
+  --cli-binary-format raw-in-base64-out `
+  --payload '{"name": "Bob"}' `
+  response.json
+
+awslocal lambda invoke `
+  --function-name customer-stream-consumer `
+  --payload 'eyJuYW1lIjogIkJvYiJ9' `
+  response.json
+
+awslocal lambda list-functions
+
+awslocal lambda delete-function --function-name customer-stream-consumer
+
+
+awslocal dynamodb describe-table --table-name Customers
+
+awslocal dynamodb put-item `
+  --table-name Customers `
+  --item 'Id={S="104"},EmailAddress={S="bob@mail.dev"},FirstName={S="Bob"},LastName={S="Smith"}'
+
+awslocal dynamodb scan --table-name Customers
