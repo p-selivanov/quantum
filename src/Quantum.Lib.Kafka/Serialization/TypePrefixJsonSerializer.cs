@@ -2,7 +2,7 @@
 using Confluent.Kafka;
 using Quantum.Lib.Common;
 
-namespace Quantum.Lib.Kafka;
+namespace Quantum.Lib.Kafka.Serialization;
 
 public class TypePrefixJsonSerializer : ISerializer<object>
 {

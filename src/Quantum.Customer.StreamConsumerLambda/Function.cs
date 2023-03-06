@@ -2,7 +2,7 @@ using Amazon.Lambda.Core;
 using Amazon.Lambda.DynamoDBEvents;
 using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
-using Quantum.Lib.Kafka;
+using Quantum.Lib.Kafka.Serialization;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 

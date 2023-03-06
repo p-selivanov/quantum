@@ -1,4 +1,4 @@
-﻿namespace Quantum.Lib.Kafka;
+﻿namespace Quantum.Lib.Kafka.Serialization;
 
 public class MessageEnvelope
 {

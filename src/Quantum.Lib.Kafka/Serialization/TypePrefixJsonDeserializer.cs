@@ -6,11 +6,11 @@ using System.Text;
 using Confluent.Kafka;
 using Quantum.Lib.Common;
 
-namespace Quantum.Lib.Kafka;
+namespace Quantum.Lib.Kafka.Serialization;
 
 public class TypePrefixJsonDeserializer : IDeserializer<MessageEnvelope>
 {
-    private readonly Dictionary<string, Type> messageTypes;
+    private readonly Dictionary<string, Type> _messageTypes;
 
     public TypePrefixJsonDeserializer(IEnumerable<Type> messageTypes)
     {
@@ -19,7 +19,7 @@ public class TypePrefixJsonDeserializer : IDeserializer<MessageEnvelope>
             throw new ArgumentNullException(nameof(messageTypes));
         }
 
-        this.messageTypes = messageTypes
+        _messageTypes = messageTypes
             .ToDictionary(x => x.Name, x => x);
     }
 
@@ -30,7 +30,7 @@ public class TypePrefixJsonDeserializer : IDeserializer<MessageEnvelope>
             throw new ArgumentNullException(nameof(messageTypeMap));
         }
 
-        this.messageTypes = messageTypeMap;
+        _messageTypes = messageTypeMap;
     }
 
     public MessageEnvelope Deserialize(ReadOnlySpan<byte> data, bool isNull, SerializationContext context)
@@ -55,7 +55,7 @@ public class TypePrefixJsonDeserializer : IDeserializer<MessageEnvelope>
 
         var messageContentString = messageString.Substring(separatorIndex + 1);
 
-        if (!messageTypes.TryGetValue(messageTypeName, out var messageType))
+        if (!_messageTypes.TryGetValue(messageTypeName, out var messageType))
         {
             return new MessageEnvelope(messageTypeName, null);
         }

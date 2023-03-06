@@ -18,7 +18,7 @@ public static class QuantumJson
     public static readonly JsonSerializer DefaultSerializer = JsonSerializer.Create(DefaultSettings);
 
     /// <summary>
-    /// Applies the default Wafer Json settings to the provided settings instance.
+    /// Applies the default Json settings to the provided settings instance.
     /// </summary>
     public static void ApplyDefaultSettings(JsonSerializerSettings settings)
     {
