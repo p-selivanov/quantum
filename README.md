@@ -1,10 +1,10 @@
 # Quantum
 
-Quantum is an experimental PoC project. It evaluates a few approaches to microservices design.
+Quantum is a proof of concept project. It evaluates a few approaches to microservices design.
 
-The system imitates an imaginary investment bank that is unrealistically profitable. 
-Any user can register and deposit some funds. 
-The bank then calculates extremely generous interest on the deposit: 0.1% every 2 minutes. 
+The system imitates an imaginary bank.
+Any user can register and deposit some funds.
+The bank then calculates extremely generous interest on the deposit: 0.1% every 2 minutes.
 The user may check his balance and withdraw the money any time.
 
 It is expected that the system will have extremelly high number of new registrations, deposits and withdraws.
@@ -50,25 +50,7 @@ Features:
 ### Account Search Service
 1. Search accounts by Email, FirstName, LastName, Currency, Balance
 
-## Docker Commands
-Run only infrastructure (for local dev):
-```
-docker compose -f compose-infra.yaml --project-name quantum up -d
-docker compose --project-name quantum down
-```
-
-Run infra and all services:
-```
-docker compose -f compose-infra.yaml -f ccompose-Quantum.yaml --project-name quantum up -d
-docker compose --project-name quantum down
-```
-
-Build commands:
-```
-docker build . -f ./src/Quantum.Customer.Api/Dockerfile -t quantum-customer-api:1.0.1
-```
-
-TODO
+## TODO
 - ID format
 - Dockerfiles
 - Account creation
@@ -78,35 +60,30 @@ TODO
 - System.Text.Json
 - Unite models and DTOs?
 
+GET /customer/123/accounts
+GET /customer/123/accounts/546
+GET /accounts/546
 
-awslocal iam create-role `
-  --role-name dynamo-stream-consumer `
-  --assume-role-policy-document '{"Version": "2012-10-17", "Statement": [{ "Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"}, "Action": "sts:AssumeRole"}]}'
+POST /accounts/546/deposit
+POST /customer/123/deposit
 
-awslocal iam attach-role-policy `
-  --role-name dynamo-stream-consumer `
-  --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+Customers
+PK: Id
+SK:-
+{
+  Id: 123,
+  EmailAddress: bob@mail.dev,
+  Country: Poland
+}
 
-awslocal lambda invoke `
-  --function-name customer-stream-consumer `
-  --cli-binary-format raw-in-base64-out `
-  --payload '{"name": "Bob"}' `
-  response.json
+AccountTransactions
+PS: AccountId, 
+SK: TransactionId | 0
+{
+  AccountId: 123-usd,
+  TransactionId: 0,
+  CustomerId: 123,
+}
 
-awslocal lambda invoke `
-  --function-name customer-stream-consumer `
-  --payload 'eyJuYW1lIjogIkJvYiJ9' `
-  response.json
-
-awslocal lambda list-functions
-
-awslocal lambda delete-function --function-name customer-stream-consumer
-
-
-awslocal dynamodb describe-table --table-name Customers
-
-awslocal dynamodb put-item `
-  --table-name Customers `
-  --item 'Id={S="104"},EmailAddress={S="bob@mail.dev"},FirstName={S="Bob"},LastName={S="Smith"}'
-
-awslocal dynamodb scan --table-name Customers
+PS: CustomerId, 
+SK: 0 | Currency | Currency#TransactionId

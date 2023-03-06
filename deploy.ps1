@@ -22,7 +22,8 @@ awslocal lambda create-function `
   --zip-file fileb://src/Quantum.Customer.StreamConsumerLambda/bin/function.zip `
   --handler Quantum.Customer.StreamConsumerLambda::Quantum.Customer.StreamConsumerLambda.Function::FunctionHandler `
   --runtime dotnet6 `
-  --role arn:aws:iam::000000000000:role/lambda-role
+  --role arn:aws:iam::000000000000:role/lambda-role `
+  --environment "Variables={Kafka__BootstrapServers=kafka:9094}"
 
 Write-Host "> Create event source mapping for customer-stream-consumer-lambda:"
 awslocal lambda create-event-source-mapping `

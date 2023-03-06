@@ -1,9 +1,8 @@
-﻿namespace Quantum.Lib.Common
-{
-    public interface ISpecifiable
-    {
-        object Value { get; }
+﻿namespace Quantum.Lib.Common;
 
-        bool IsSpecified { get; }
-    }
+public interface ISpecifiable
+{
+    object Value { get; }
+
+    bool IsSpecified { get; }
 }

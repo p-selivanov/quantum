@@ -4,9 +4,8 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Converters;
 using Quantum.Account.Api.Repositories;
-using Quantum.Lib.AspNet;
+using Quantum.Lib.Common;
 using Quantum.Lib.DynamoDb;
 
 namespace Quantum.Account.Api;
@@ -31,9 +30,7 @@ public class Startup
             .AddControllers()
             .AddNewtonsoftJson(options =>
             {
-                options.SerializerSettings.Converters.Add(new StringEnumConverter());
-                options.SerializerSettings.Converters.Add(new SpecifiableConverter());
-                options.SerializerSettings.ContractResolver = new CustomJsonContractResolver();
+                QuantumJson.ApplyDefaultSettings(options.SerializerSettings);
             });
 
         services

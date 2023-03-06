@@ -18,7 +18,7 @@ public static class AttributeValueExtensions
     public static TEnum AsEnum<TEnum>(this AttributeValue value)
         where TEnum : struct
     {
-        return Enum.Parse<TEnum>(value.S);
+        return (TEnum)Enum.Parse(typeof(TEnum), value.S);
     }
 
     public static DateTime AsTimestamp(this AttributeValue value)
