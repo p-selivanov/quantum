@@ -11,8 +11,8 @@ $customerTable = $response | ConvertFrom-Json
 Write-Host "> DynamoDB create table AccountTransactions:"
 awslocal dynamodb create-table `
   --table-name AccountTransactions `
-  --attribute-definitions AttributeName=AccountId,AttributeType=S AttributeName=TransactionId,AttributeType=N `
-  --key-schema AttributeName=AccountId,KeyType=HASH AttributeName=TransactionId,KeyType=RANGE `
+  --attribute-definitions AttributeName=CustomerId,AttributeType=S AttributeName=TransactionId,AttributeType=S `
+  --key-schema AttributeName=CustomerId,KeyType=HASH AttributeName=TransactionId,KeyType=RANGE `
   --provisioned-throughput ReadCapacityUnits=100,WriteCapacityUnits=100 `
   --stream-specification StreamEnabled=true,StreamViewType=NEW_AND_OLD_IMAGES
 

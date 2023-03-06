@@ -1,24 +1,31 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Quantum.Account.CustomerConsumer.Events;
+using Quantum.Account.CustomerConsumer.Repositories;
 using Quantum.Lib.Kafka;
 
 namespace Quantum.Account.CustomerConsumer;
 
 internal class CustomerEventConsumer : IMessageConsumer<CustomerCreated>, IMessageConsumer<CustomerUpdated>
 {
-    public CustomerEventConsumer()
+    private readonly CustomerRepository _repository;
+
+    public CustomerEventConsumer(CustomerRepository repository)
     {
+        _repository = repository;
     }
 
-    public Task ConsumeAsync(string key, CustomerCreated message, CancellationToken cancellationToken = default)
+    public async Task ConsumeAsync(string key, CustomerCreated message, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        await _repository.CreateCustomerAsync(key, message.Country, message.Status);
     }
 
-    public Task ConsumeAsync(string key, CustomerUpdated message, CancellationToken cancellationToken = default)
+    public async Task ConsumeAsync(string key, CustomerUpdated message, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        if (message.Status.IsSpecified ||
+            message.Country.IsSpecified)
+        {
+            await _repository.UpdateCustomerAsync(key, message.Country, message.Status);
+        }
     }
 }
