@@ -67,6 +67,15 @@ public class CustomerController : ControllerBase
             }
         }
 
+        if (request.Status.IsSpecified)
+        {
+            var result = await _customerService.UpdateCustomerStatusAsync(customerId, request.Status.Value);
+            if (result.IsFailure)
+            {
+                return result.ToActionResult();
+            }
+        }
+
         return NoContent();
     }
 }

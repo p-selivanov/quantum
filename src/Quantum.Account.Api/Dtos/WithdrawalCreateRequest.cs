@@ -1,8 +1,8 @@
 ﻿namespace Quantum.Account.Api.Dtos;
 
-public class Account
+public class WithdrawalCreateRequest
 {
     public string Currency { get; set; }
 
-    public decimal Balance { get; set; }
+    public decimal Amount { get; set; }
 }

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Quantum.Account.Api.Configuration;
 using Quantum.Account.Api.Repositories;
+using Quantum.Account.Api.Services;
 using Quantum.Lib.Common;
 using Quantum.Lib.DynamoDb;
 
@@ -31,10 +32,10 @@ public class Startup
 
         services.Configure<CurrencyOptions>(options =>
         {
-            var currencyString = Configuration.GetValue<string>("Currencies");
-            if (string.IsNullOrEmpty(currencyString) is false)
+            var currenciesString = Configuration.GetValue<string>("Currencies");
+            if (string.IsNullOrEmpty(currenciesString) is false)
             {
-                options.Currencies = currencyString.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                options.Currencies = currenciesString.Split(',', StringSplitOptions.RemoveEmptyEntries)
                     .Select(x => x.Trim().ToUpper())
                     .ToArray();
             }
@@ -44,6 +45,14 @@ public class Startup
         {
             options.DepositCommisionPercent = Configuration.GetValue<decimal>("Commissions:Deposit");
             options.WithdrawalCommisionPercent = Configuration.GetValue<decimal>("Commissions:Withdrawal");
+
+            var countriesString = Configuration.GetValue<string>("Commissions:DiscountCountries");
+            if (string.IsNullOrEmpty(countriesString) is false)
+            {
+                options.DiscountCountries = countriesString.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => x.Trim())
+                    .ToArray();
+            }
         });
 
         services.AddDynamoDbClient(Configuration.GetValue<string>("DynamoDB:Region"));
@@ -51,6 +60,7 @@ public class Startup
         services.AddScoped<CustomerRepository>();
         services.AddScoped<AccountRepository>();
         services.AddScoped<TransactionRepository>();
+        services.AddScoped<AccountService>();
 
         services
             .AddControllers()

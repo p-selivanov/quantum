@@ -5,30 +5,29 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Newtonsoft.Json;
 
-namespace Quantum.Lib.AspNet
+namespace Quantum.Lib.AspNet;
+
+public static class HealthCheckResponseWriter
 {
-    public static class HealthCheckResponseWriter
+    private static readonly string Version = Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
+
+    public static Task WriteResponse(HttpContext context, HealthReport result)
     {
-        private static readonly string Version = Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
+        context.Response.ContentType = "application/json; charset=utf-8";
 
-        public static Task WriteResponse(HttpContext context, HealthReport result)
-        {
-            context.Response.ContentType = "application/json; charset=utf-8";
+        using var stringWriter = new StringWriter();
+        using var jsonWriter = new JsonTextWriter(stringWriter);
 
-            using var stringWriter = new StringWriter();
-            using var jsonWriter = new JsonTextWriter(stringWriter);
+        jsonWriter.WriteStartObject();
 
-            jsonWriter.WriteStartObject();
+        jsonWriter.WritePropertyName("status");
+        jsonWriter.WriteValue(result.Status.ToString());
 
-            jsonWriter.WritePropertyName("status");
-            jsonWriter.WriteValue(result.Status.ToString());
+        jsonWriter.WritePropertyName("version");
+        jsonWriter.WriteValue("v" + Version);
 
-            jsonWriter.WritePropertyName("version");
-            jsonWriter.WriteValue("v" + Version);
+        jsonWriter.WriteEndObject();
 
-            jsonWriter.WriteEndObject();
-
-            return context.Response.WriteAsync(stringWriter.ToString());
-        }
+        return context.Response.WriteAsync(stringWriter.ToString());
     }
 }

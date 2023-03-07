@@ -6,9 +6,9 @@ using Quantum.Account.Api.Configuration;
 
 namespace Quantum.Account.Api.Dtos.Validators;
 
-public class CustomerTransactionCreateRequestValidator : AbstractValidator<CustomerTransactionCreateRequest>
+public class DepositCreateRequestValidator : AbstractValidator<DepositCreateRequest>
 {
-	public CustomerTransactionCreateRequestValidator(IOptions<CurrencyOptions> currrencyOptions)
+	public DepositCreateRequestValidator(IOptions<CurrencyOptions> currrencyOptions)
 	{
         var currencies = currrencyOptions.Value.Currencies;
 

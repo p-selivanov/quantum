@@ -1,6 +1,6 @@
 ﻿namespace Quantum.Account.Api.Dtos;
 
-public class CustomerTransactionCreateRequest
+public class DepositCreateRequest
 {
     public string Currency { get; set; }
 

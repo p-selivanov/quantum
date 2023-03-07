@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Quantum.Customer.Models;
+using Quantum.Customer.Api.Models;
 using Quantum.Customer.Repositories;
 using Quantum.Lib.Common;
 
@@ -48,7 +48,18 @@ public class CustomerService
         var isUpdated = await _customerRepository.UpdateCustomerCountryAsync(customerId, country);
         if (isUpdated == false)
         {
-            return OperationResult.NotFound();
+            return OperationResult.Failure("Customer is not found", "404");
+        }
+
+        return OperationResult.Success();
+    }
+
+    public async Task<OperationResult> UpdateCustomerStatusAsync(string customerId, CustomerStatus status)
+    {
+        var isUpdated = await _customerRepository.UpdateCustomerStatusAsync(customerId, status);
+        if (isUpdated == false)
+        {
+            return OperationResult.Failure("Customer is not found", "404");
         }
 
         return OperationResult.Success();

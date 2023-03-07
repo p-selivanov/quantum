@@ -13,18 +13,22 @@ public class CustomerPatchRequestValidator : AbstractValidator<CustomerPatchRequ
 
         RuleFor(x => x.FirstName.Value)
             .MaximumLength(50)
-            .When(x => x.EmailAddress.IsSpecified);
+            .When(x => x.FirstName.IsSpecified);
 
         RuleFor(x => x.LastName.Value)
             .MaximumLength(50)
-            .When(x => x.EmailAddress.IsSpecified);
+            .When(x => x.LastName.IsSpecified);
 
         RuleFor(x => x.PhoneNumber.Value)
            .MaximumLength(20)
-           .When(x => x.EmailAddress.IsSpecified);
+           .When(x => x.PhoneNumber.IsSpecified);
 
         RuleFor(x => x.Country.Value)
            .MaximumLength(20)
-           .When(x => x.EmailAddress.IsSpecified);
+           .When(x => x.Country.IsSpecified);
+
+        RuleFor(x => x.Status.Value)
+           .IsInEnum()
+           .When(x => x.Status.IsSpecified);
     }
 }

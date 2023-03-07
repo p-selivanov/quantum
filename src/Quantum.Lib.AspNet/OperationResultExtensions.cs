@@ -1,43 +1,42 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Quantum.Lib.Common;
 
-namespace Quantum.Lib.AspNet
+namespace Quantum.Lib.AspNet;
+
+public static class OperationResultExtensions
 {
-    public static class OperationResultExtensions
+    public static ActionResult ToActionResult(this OperationResult result)
     {
-        public static ActionResult ToActionResult(this OperationResult result)
+        if (result.IsFailure)
         {
-            if (result.IsNotFound)
+            if (result.Error.Code == "404")
             {
                 return new NotFoundResult();
             }
 
-            if (result.IsFailure)
+            return new BadRequestObjectResult(new ErrorResponse(result.Error.Message, result.Error.Code));
+        }
+
+        return new NoContentResult();
+    }
+
+    public static ActionResult ToActionResult<T>(this OperationResult<T> result)
+    {
+        if (result.IsFailure)
+        {
+            if (result.Error.Code == "404")
             {
-                return new BadRequestObjectResult(new ErrorResponse(result.Error));
+                return new NotFoundResult();
             }
 
+            return new BadRequestObjectResult(new ErrorResponse(result.Error.Message, result.Error.Code));
+        }
+
+        if (result.Value is null)
+        {
             return new NoContentResult();
         }
 
-        public static ActionResult ToActionResult<T>(this OperationResult<T> result)
-        {
-            if (result.IsNotFound)
-            {
-                return new NotFoundResult();
-            }
-
-            if (result.IsFailure)
-            {
-                return new BadRequestObjectResult(new ErrorResponse(result.Error));
-            }
-
-            if (result.Value == null)
-            {
-                return new NoContentResult();
-            }
-
-            return new OkObjectResult(result.Value);
-        }
+        return new OkObjectResult(result.Value);
     }
 }

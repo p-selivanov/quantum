@@ -1,4 +1,4 @@
-﻿namespace Quantum.Customer.Models;
+﻿namespace Quantum.Customer.Api.Models;
 
 public enum CustomerStatus
 {

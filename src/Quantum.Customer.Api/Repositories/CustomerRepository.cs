@@ -2,27 +2,29 @@
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
-using Quantum.Customer.Models;
+using Microsoft.Extensions.Options;
+using Quantum.Customer.Api.Configuration;
+using Quantum.Customer.Api.Models;
 using Quantum.Lib.DynamoDb;
 
 namespace Quantum.Customer.Repositories;
 
 public class CustomerRepository
 {
-    private const string TableName = "Customers";
-
     private readonly IAmazonDynamoDB _client;
+    private readonly string _tableName;
 
-    public CustomerRepository(IAmazonDynamoDB client)
+    public CustomerRepository(IAmazonDynamoDB client, IOptions<DynamoTableOptions> tableOptions)
     {
         _client = client;
+        _tableName = tableOptions.Value.CustomerTableName;
     }
 
     public async Task<CustomerDetail> GetCustomerAsync(string customerId)
     {
         var response = await _client.GetItemAsync(new GetItemRequest
         {
-            TableName = TableName,
+            TableName = _tableName,
             Key =
             {
                 ["Id"] = AttributeValueFactory.FromString(customerId),
@@ -56,7 +58,7 @@ public class CustomerRepository
 
         var response = await _client.PutItemAsync(new PutItemRequest
         {
-            TableName = TableName,
+            TableName = _tableName,
             Item =
             {
                 ["Id"] = AttributeValueFactory.FromString(customer.Id),
@@ -80,7 +82,7 @@ public class CustomerRepository
         {
             var response = await _client.UpdateItemAsync(new UpdateItemRequest
             {
-                TableName = TableName,
+                TableName = _tableName,
                 Key =
                 {
                     ["Id"] = AttributeValueFactory.FromString(customerId),
@@ -110,7 +112,7 @@ public class CustomerRepository
         {
             var response = await _client.UpdateItemAsync(new UpdateItemRequest
             {
-                TableName = TableName,
+                TableName = _tableName,
                 Key =
                 {
                     ["Id"] = AttributeValueFactory.FromString(customerId),
@@ -139,7 +141,7 @@ public class CustomerRepository
         {
             var response = await _client.UpdateItemAsync(new UpdateItemRequest
             {
-                TableName = TableName,
+                TableName = _tableName,
                 Key =
                 {
                     ["Id"] = AttributeValueFactory.FromString(customerId),
@@ -168,7 +170,7 @@ public class CustomerRepository
         {
             var response = await _client.UpdateItemAsync(new UpdateItemRequest
             {
-                TableName = TableName,
+                TableName = _tableName,
                 Key =
                 {
                     ["Id"] = AttributeValueFactory.FromString(customerId),
@@ -180,6 +182,39 @@ public class CustomerRepository
                     [":id"] = AttributeValueFactory.FromString(customerId),
                     [":country"] = AttributeValueFactory.FromString(country),
                     [":timestamp"] = AttributeValueFactory.FromTimestamp(DateTime.UtcNow),
+                },
+            });
+
+            return true;
+        }
+        catch (ConditionalCheckFailedException)
+        {
+            return false;
+        }
+    }
+
+    public async Task<bool> UpdateCustomerStatusAsync(string customerId, CustomerStatus status)
+    {
+        try
+        {
+            var response = await _client.UpdateItemAsync(new UpdateItemRequest
+            {
+                TableName = _tableName,
+                Key =
+                {
+                    ["Id"] = AttributeValueFactory.FromString(customerId),
+                },
+                UpdateExpression = "SET #status = :status, UpdatedAt = :timestamp",
+                ConditionExpression = "Id = :id",
+                ExpressionAttributeValues =
+                {
+                    [":id"] = AttributeValueFactory.FromString(customerId),
+                    [":status"] = AttributeValueFactory.FromEnum(status),
+                    [":timestamp"] = AttributeValueFactory.FromTimestamp(DateTime.UtcNow),
+                },
+                ExpressionAttributeNames =
+                {
+                    ["#status"] = "Status",
                 },
             });
 

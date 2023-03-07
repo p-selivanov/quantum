@@ -3,34 +3,33 @@ using System.Linq;
 using Newtonsoft.Json;
 using Quantum.Lib.Common;
 
-namespace Quantum.Lib.AspNet
+namespace Quantum.Lib.AspNet;
+
+public class SpecifiableConverter : JsonConverter
 {
-    public class SpecifiableConverter : JsonConverter
+    public override bool CanRead => true;
+
+    public override bool CanWrite => true;
+
+    public override bool CanConvert(Type objectType)
     {
-        public override bool CanRead => true;
+        return objectType.IsAssignableTo(typeof(ISpecifiable));
+    }
 
-        public override bool CanWrite => true;
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    {
+        var realObjectType = objectType.GetGenericArguments().First();
+        var value = serializer.Deserialize(reader, realObjectType);
+        var instance = Activator.CreateInstance(objectType, value);
+        return instance;
+    }
 
-        public override bool CanConvert(Type objectType)
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+        var specifiable = (ISpecifiable)value;
+        if (specifiable?.IsSpecified == true)
         {
-            return objectType.IsAssignableTo(typeof(ISpecifiable));
-        }
-
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            var realObjectType = objectType.GetGenericArguments().First();
-            var value = serializer.Deserialize(reader, realObjectType);
-            var instance = Activator.CreateInstance(objectType, value);
-            return instance;
-        }
-
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            var specifiable = (ISpecifiable)value;
-            if (specifiable?.IsSpecified == true)
-            {
-                serializer.Serialize(writer, specifiable.Value);
-            }
+            serializer.Serialize(writer, specifiable.Value);
         }
     }
 }

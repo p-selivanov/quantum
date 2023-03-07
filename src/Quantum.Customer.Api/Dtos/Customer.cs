@@ -1,5 +1,5 @@
 ﻿using System;
-using Quantum.Customer.Models;
+using Quantum.Customer.Api.Models;
 
 namespace Quantum.Customer.Api.Dtos;
 

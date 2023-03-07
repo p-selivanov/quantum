@@ -2,37 +2,19 @@
 
 public class OperationResult
 {
-    public const string NotFoundError = "Not Found";
+    public OperationError Error { get; }
 
-    public string Error { get; protected set; }
+    public bool IsSuccess => Error is null;
 
-    public bool IsSuccess
+    public bool IsFailure => Error is not null;
+
+    public OperationResult()
     {
-        get
-        {
-            return string.IsNullOrEmpty(Error);
-        }
     }
 
-    public bool IsFailure
+    public OperationResult(string errorMessage, string errorCode = null)
     {
-        get
-        {
-            return string.IsNullOrEmpty(Error) == false;
-        }
-    }
-
-    public bool IsNotFound
-    {
-        get
-        {
-            return Error == NotFoundError;
-        }
-    }
-
-    public OperationResult(string errorMessage = null)
-    {
-        Error = errorMessage;
+        Error = new OperationError(errorMessage, errorCode);
     }
 
     public static OperationResult Success()
@@ -40,14 +22,19 @@ public class OperationResult
         return new OperationResult();
     }
 
-    public static OperationResult Failure(string error)
+    public static OperationResult Failure(string message, string code = null)
     {
-        return new OperationResult(error);
+        return new OperationResult(message, code);
     }
 
-    public static OperationResult NotFound()
+    public static OperationResult<T> Success<T>(T value)
     {
-        return new OperationResult(NotFoundError);
+        return new OperationResult<T>(value);
+    }
+
+    public static OperationResult<T> Failure<T>(string message, string code = null)
+    {
+        return new OperationResult<T>(message, code);
     }
 }
 
@@ -55,24 +42,18 @@ public class OperationResult<T> : OperationResult
 {
     public T Value { get; private set; }
 
-    public OperationResult(T value, string error = null)
-        : base(error)
+    public OperationResult(T value)
     {
         Value = value;
     }
 
-    public static OperationResult<T> Success(T value)
+    public OperationResult(string errorMessage, string errorCode = null) 
+        :base(errorCode, errorMessage)
+    {
+    }
+
+    public static implicit operator OperationResult<T>(T value)
     {
         return new OperationResult<T>(value);
-    }
-
-    public static new OperationResult<T> Failure(string error)
-    {
-        return new OperationResult<T>(default, error);
-    }
-
-    public static new OperationResult<T> NotFound()
-    {
-        return new OperationResult<T>(default, NotFoundError);
     }
 }
