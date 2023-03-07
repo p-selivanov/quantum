@@ -31,3 +31,10 @@ awslocal lambda create-event-source-mapping `
   --event-source $customerTable.TableDescription.LatestStreamArn `
   --batch-size 1 `
   --starting-position TRIM_HORIZON
+
+Write-Host "> Create topic customer-events:"
+Invoke-WebRequest 'http://localhost:9080/api/clusters/local/topics' `
+  -Body '{"name":"customer-events","partitions":30,"replicationFactor":"1"}' `
+  -Method 'POST' `
+  -ContentType 'application/json' `
+  -UseBasicParsing

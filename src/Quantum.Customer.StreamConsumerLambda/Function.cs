@@ -65,7 +65,6 @@ public class Function
             Acks = Acks.All,
             EnableDeliveryReports = true,
             DeliveryReportFields = "none",
-            AllowAutoCreateTopics = true,
         };
 
         var producerBuilder = new ProducerBuilder<string, object>(producerConfig);

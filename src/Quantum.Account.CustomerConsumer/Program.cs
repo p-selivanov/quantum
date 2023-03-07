@@ -39,7 +39,7 @@ public class Program
 
             kafkaConfig.AddTopicConsumer(topic, topicConfig =>
             {
-                topicConfig.DegreeOfParallelism = 1;
+                topicConfig.DegreeOfParallelism = context.Configuration.GetValue<int>("Kafka:DegreeOfParallelism");
                 topicConfig.SkipUnknownMessages = true;
                 topicConfig.AddMessageConsumer<CustomerEventConsumer>();
             });

@@ -43,7 +43,6 @@ public class StrictTopicConsumer : BackgroundService
         var consumerConfig = new ConsumerConfig
         {
             BootstrapServers = _kafkaConfig.BootstrapServers,
-            AllowAutoCreateTopics = true,
             GroupId = _kafkaConfig.GroupId,
             AutoOffsetReset = AutoOffsetReset.Earliest,
             EnableAutoOffsetStore = false,
