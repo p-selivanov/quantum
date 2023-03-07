@@ -1,6 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
+using Microsoft.Extensions.Options;
+using Quantum.Account.Api.Configuration;
 using Quantum.Account.Api.Models;
 using Quantum.Lib.DynamoDb;
 
@@ -8,24 +12,47 @@ namespace Quantum.Account.Api.Repositories;
 
 public class AccountRepository
 {
-    private const string TableName = "AccountTransactions";
-
     private readonly IAmazonDynamoDB _client;
+    private readonly string _tableName;
 
-    public AccountRepository(IAmazonDynamoDB client)
+    public AccountRepository(IAmazonDynamoDB client, IOptions<DynamoTableOptions> tableOptions)
     {
         _client = client;
+        _tableName = tableOptions.Value.AccountTransactionTableName;
     }
 
-    public async Task<AccountDetail> GetAccount(string accountId)
+    public async Task<List<AccountInfo>> GetAccountsAsync(string customerId)
     {
+        var response = await _client.QueryAsync(new QueryRequest
+        {
+            TableName = _tableName,
+            KeyConditionExpression = "CustomerId = :customerId AND (TransactionId BETWEEN :delimiterFrom AND :delimiterTo)",
+            ExpressionAttributeValues =
+            {
+                [":customerId"] = AttributeValueFactory.FromString(customerId),
+                [":delimiterFrom"] = AttributeValueFactory.FromString("##"),
+                [":delimiterTo"] = AttributeValueFactory.FromString("#~"),
+            },
+        });
+
+        var accounts = response.Items
+            .Select(CreateAccountDetail)
+            .ToList();
+
+        return accounts;
+    }
+
+    public async Task<AccountInfo> GetAccountAsync(string customerId, string currency)
+    {
+        currency = currency.ToUpper();
+
         var response = await _client.GetItemAsync(new GetItemRequest
         {
-            TableName = TableName,
+            TableName = _tableName,
             Key =
             {
-                ["AccountId"] = AttributeValueFactory.FromString(accountId),
-                ["TransactionId"] = AttributeValueFactory.FromInt(0),
+                ["CustomerId"] = AttributeValueFactory.FromString(customerId),
+                ["TransactionId"] = AttributeValueFactory.FromString($"#{currency}"),
             },
         });
 
@@ -34,30 +61,46 @@ public class AccountRepository
             return null;
         }
 
-        var account = new AccountDetail
-        {
-            Id = response.Item["AccountId"].AsString(),
-            CustomerId = response.Item["CustomerId"].AsString(),
-            Currency = response.Item["Currency"].AsString(),
-            Balance = response.Item["Balance"].AsDecimal(),
-        };
+        var account = CreateAccountDetail(response.Item);
 
         return account;
     }
 
-    public async Task CreateAccount(string accountId, string customerId, string currency)
+    public async Task EnsureAccountInitializedAsync(string customerId, string currency)
     {
-        var response = await _client.PutItemAsync(new PutItemRequest
+        currency = currency.ToUpper();
+
+        try
         {
-            TableName = TableName,
-            Item =
+            var response = await _client.PutItemAsync(new PutItemRequest
             {
-                ["AccountId"] = AttributeValueFactory.FromString(accountId),
-                ["TransactionId"] = AttributeValueFactory.FromInt(0),
-                ["CustomerId"] = AttributeValueFactory.FromString(customerId),
-                ["Currency"] = AttributeValueFactory.FromString(currency),
-                ["Balance"] = AttributeValueFactory.FromDecimal(0),
-            },
-        });
+                TableName = _tableName,
+                Item =
+                {
+                    ["CustomerId"] = AttributeValueFactory.FromString(customerId),
+                    ["TransactionId"] = AttributeValueFactory.FromString($"#{currency}"),
+                    ["Balance"] = AttributeValueFactory.FromDecimal(0),
+                },
+                ConditionExpression = "attribute_not_exists(CustomerId)",
+            });
+        }
+        catch (ConditionalCheckFailedException)
+        {
+        }
+    }
+
+    public AccountInfo CreateAccountDetail(Dictionary<string, AttributeValue> dbItem)
+    {
+        return new AccountInfo
+        {
+            CustomerId = dbItem["CustomerId"].AsString(),
+            Currency = ParseTransactionCurrency(dbItem["TransactionId"].AsString()),
+            Balance = dbItem["Balance"].AsDecimal(),
+        };
+    }
+
+    private string ParseTransactionCurrency(string transactionId)
+    {
+        return transactionId.Substring(1);
     }
 }
