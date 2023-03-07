@@ -11,55 +11,45 @@ internal static class MessageFactory
 {
     public static Message<string, object> ExtractMessage(DynamoDBEvent.DynamodbStreamRecord record)
     {
-        var customerId = record.Dynamodb.Keys["Id"].AsString();
-        var message = new Message<string, object>
-        {
-            Key = customerId,
-        };
-
         if (record.EventName == OperationType.INSERT)
         {
-            var createdEvent = ExtractCreatedEvent(record);
-            message.Value = createdEvent;
-            message.Timestamp = new Timestamp(createdEvent.Timestamp);
-            return message;
+            return ExtractCreatedEvent(record);
         }
         else if (record.EventName == OperationType.MODIFY)
         {
-            var updatedEvent = ExtractUpdatedEvent(record);
-            message.Value = updatedEvent;
-            message.Timestamp = new Timestamp(updatedEvent.Timestamp);
-            return message;
+            return ExtractUpdatedEvent(record);
         }
 
         return null;
     }
 
-    private static CustomerCreated ExtractCreatedEvent(DynamoDBEvent.DynamodbStreamRecord record)
+    private static Message<string, object> ExtractCreatedEvent(DynamoDBEvent.DynamodbStreamRecord record)
     {
+        var customerId = record.Dynamodb.Keys["Id"].AsString();
         var item = record.Dynamodb.NewImage;
-        return new CustomerCreated
+        
+        return new Message<string, object>
         {
-            Id = item["Id"].AsString(),
-            EmailAddress = item["EmailAddress"].AsString(),
-            FirstName = item["FirstName"].AsString(),
-            LastName = item["LastName"].AsString(),
-            PhoneNumber = item["PhoneNumber"].AsString(),
-            Country = item["Country"].AsString(),
-            Status = item["Status"].AsString(),
-            Timestamp = item["CreatedAt"].AsTimestamp(),
+            Key = customerId,
+            Value = new CustomerCreated
+            {
+                EmailAddress = item["EmailAddress"].AsString(),
+                FirstName = item["FirstName"].AsString(),
+                LastName = item["LastName"].AsString(),
+                PhoneNumber = item["PhoneNumber"].AsString(),
+                Country = item["Country"].AsString(),
+                Status = item["Status"].AsString(),
+            },
+            Timestamp = new Timestamp(item["CreatedAt"].AsTimestamp()),
         };
     }
 
-    private static CustomerUpdated ExtractUpdatedEvent(DynamoDBEvent.DynamodbStreamRecord record)
+    private static Message<string, object> ExtractUpdatedEvent(DynamoDBEvent.DynamodbStreamRecord record)
     {
+        var customerId = record.Dynamodb.Keys["Id"].AsString();
         var newItem = record.Dynamodb.NewImage;
-        
-        var @event = new CustomerUpdated
-        {
-            Id = newItem["Id"].AsString(),
-            Timestamp = newItem["UpdatedAt"].AsTimestamp(),
-        };
+
+        var @event = new CustomerUpdated();
 
         if (record.IsAttributeChanged("EmailAddress"))
         {
@@ -91,6 +81,11 @@ internal static class MessageFactory
             @event.Status = newItem["Status"].AsString();
         }
 
-        return @event;
+        return new Message<string, object>
+        {
+            Key = customerId,
+            Value = @event,
+            Timestamp = new Timestamp(newItem["UpdatedAt"].AsTimestamp()),
+        };
     }
 }

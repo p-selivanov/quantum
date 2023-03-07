@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Quantum.Lib.Kafka;
 
-public interface IMessageConsumer<TMessage>
+public interface IMessageConsumer<TValue>
 {
-    Task ConsumeAsync(string key, TMessage message, CancellationToken cancellationToken = default);
+    Task ConsumeAsync(Message<TValue> message, CancellationToken cancellationToken = default);
 }

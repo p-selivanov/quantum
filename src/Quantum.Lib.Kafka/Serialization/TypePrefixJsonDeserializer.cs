@@ -8,7 +8,7 @@ using Quantum.Lib.Common;
 
 namespace Quantum.Lib.Kafka.Serialization;
 
-public class TypePrefixJsonDeserializer : IDeserializer<MessageEnvelope>
+public class TypePrefixJsonDeserializer : IDeserializer<MessageValueEnvelope>
 {
     private readonly Dictionary<string, Type> _messageTypes;
 
@@ -33,7 +33,7 @@ public class TypePrefixJsonDeserializer : IDeserializer<MessageEnvelope>
         _messageTypes = messageTypeMap;
     }
 
-    public MessageEnvelope Deserialize(ReadOnlySpan<byte> data, bool isNull, SerializationContext context)
+    public MessageValueEnvelope Deserialize(ReadOnlySpan<byte> data, bool isNull, SerializationContext context)
     {
         if (isNull)
         {
@@ -57,12 +57,12 @@ public class TypePrefixJsonDeserializer : IDeserializer<MessageEnvelope>
 
         if (!_messageTypes.TryGetValue(messageTypeName, out var messageType))
         {
-            return new MessageEnvelope(messageTypeName, null);
+            return new MessageValueEnvelope(messageTypeName, null);
         }
 
         using var reader = new StringReader(messageContentString);
         var message = QuantumJson.DefaultSerializer.Deserialize(reader, messageType);
 
-        return new MessageEnvelope(messageTypeName, message);
+        return new MessageValueEnvelope(messageTypeName, message);
     }
 }

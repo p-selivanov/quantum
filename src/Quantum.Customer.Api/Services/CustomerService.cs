@@ -22,7 +22,7 @@ public class CustomerService
 
     public async Task<string> CreateCustomerAsync(CustomerDetail customer)
     {
-        customer.Id = Guid.NewGuid().ToString();
+        customer.Id = Guid.NewGuid().ToString("N");
         var customerId = await _customerRepository.CreateCustomerAsync(customer);
 
         return customerId;

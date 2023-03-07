@@ -1,11 +1,7 @@
-﻿using System;
-
-namespace Quantum.Customer.StreamConsumerLambda.Events;
+﻿namespace Quantum.Customer.StreamConsumerLambda.Events;
 
 internal class CustomerCreated
 {
-    public string Id { get; set; }
-
     public string EmailAddress { get; set; }
 
     public string FirstName { get; set; }
@@ -17,6 +13,4 @@ internal class CustomerCreated
     public string Country { get; set; }
 
     public string Status { get; set; }
-
-    public DateTime Timestamp { get; set; }
 }

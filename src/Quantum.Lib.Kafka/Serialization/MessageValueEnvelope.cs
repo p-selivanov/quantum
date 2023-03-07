@@ -1,12 +1,12 @@
 ﻿namespace Quantum.Lib.Kafka.Serialization;
 
-public class MessageEnvelope
+public class MessageValueEnvelope
 {
     public string TypeName { get; }
 
     public object Message { get; }
 
-    public MessageEnvelope(string typeName, object message)
+    public MessageValueEnvelope(string typeName, object message)
     {
         TypeName = typeName;
         Message = message;

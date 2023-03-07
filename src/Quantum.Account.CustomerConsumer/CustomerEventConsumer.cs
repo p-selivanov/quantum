@@ -15,17 +15,17 @@ internal class CustomerEventConsumer : IMessageConsumer<CustomerCreated>, IMessa
         _repository = repository;
     }
 
-    public async Task ConsumeAsync(string key, CustomerCreated message, CancellationToken cancellationToken = default)
+    public async Task ConsumeAsync(Message<CustomerCreated> message, CancellationToken cancellationToken = default)
     {
-        await _repository.CreateCustomerAsync(key, message.Country, message.Status);
+        await _repository.CreateCustomerAsync(message.Key, message.Value.Country, message.Value.Status);
     }
 
-    public async Task ConsumeAsync(string key, CustomerUpdated message, CancellationToken cancellationToken = default)
+    public async Task ConsumeAsync(Message<CustomerUpdated> message, CancellationToken cancellationToken = default)
     {
-        if (message.Status.IsSpecified ||
-            message.Country.IsSpecified)
+        if (message.Value.Status.IsSpecified ||
+            message.Value.Country.IsSpecified)
         {
-            await _repository.UpdateCustomerAsync(key, message.Country, message.Status);
+            await _repository.UpdateCustomerAsync(message.Key, message.Value.Country, message.Value.Status);
         }
     }
 }
