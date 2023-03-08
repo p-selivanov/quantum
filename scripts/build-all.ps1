@@ -1,3 +1,5 @@
+Push-Location ..
+
 Write-Host "> dotnet build:"
 dotnet build .
 
@@ -22,3 +24,5 @@ Compress-Archive `
   -DestinationPath ./src/Quantum.Customer.StreamConsumerLambda/bin/function.zip `
   -Force
 Write-Host "OK"
+
+Pop-Location

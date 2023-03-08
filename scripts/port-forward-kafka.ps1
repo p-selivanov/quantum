@@ -1,0 +1,1 @@
+kubectl port-forward service/kafka 9092:9092

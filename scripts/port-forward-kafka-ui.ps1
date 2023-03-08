@@ -1,0 +1,1 @@
+kubectl port-forward service/kafka-ui 9080:80

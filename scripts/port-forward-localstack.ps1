@@ -1,0 +1,1 @@
+kubectl port-forward service/localstack 4566:4566
