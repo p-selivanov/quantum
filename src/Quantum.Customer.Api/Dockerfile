@@ -6,7 +6,7 @@ COPY ["src/Quantum.Lib.Common/Quantum.Lib.Common.csproj", "Quantum.Lib.Common/"]
 COPY ["src/Quantum.Lib.DynamoDb/Quantum.Lib.DynamoDb.csproj", "Quantum.Lib.DynamoDb/"]
 RUN dotnet restore "Quantum.Customer.Api/Quantum.Customer.Api.csproj"
 COPY src/ .
-RUN dotnet publish "Quantum.Customer.Api/Quantum.Customer.Api.csproj" -c Release -o /app
+RUN dotnet publish "Quantum.Customer.Api/Quantum.Customer.Api.csproj" -c Release -o /app /p:UseAppHost=false
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 as final
 WORKDIR /app

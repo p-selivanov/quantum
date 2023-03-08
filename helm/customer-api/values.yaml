@@ -1,0 +1,6 @@
+image: quantum-customer-api:1.0.1
+replicaCount: 1
+
+dynamoDb:
+  region: "localstack"
+  localStackUri: "http://localstack:4566"

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "service.name" . }}
+  labels:
+    {{- include "service.labels" . | nindent 4 }}
+data:
+  Kafka__BootstrapServers: {{ tpl .Values.kafka.bootstrapServers . | quote }}
+  DynamoDb__Region: {{ tpl .Values.dynamoDb.region . | quote }}

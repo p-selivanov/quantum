@@ -1,0 +1,4 @@
+host: minikube.internal
+services: 
+  customerApi: quantum-customer-api
+  accountApi: quantum-account-api

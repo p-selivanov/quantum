@@ -1,0 +1,6 @@
+apiVersion: v2
+name: quantum-account-customer-consumer
+description: Quantum account customer event consumer
+type: application
+version: 0.1.0
+appVersion: "1.0.1"

@@ -26,7 +26,11 @@ public class Program
             options.CustomerTableName = context.Configuration.GetValue<string>("DynamoDB:Tables:AccountTransactions");
         });
 
-        services.AddDynamoDbClient(context.Configuration.GetValue<string>("DynamoDB:Region"));
+        services.AddDynamoDbClient(options =>
+        {
+            options.Region = context.Configuration.GetValue<string>("DynamoDB:Region");
+            options.LocalStackUri = context.Configuration.GetValue<string>("DynamoDB:LocalStackUri");
+        });
 
         services.AddScoped<CustomerRepository>();
 

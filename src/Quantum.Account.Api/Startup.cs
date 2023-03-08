@@ -55,7 +55,11 @@ public class Startup
             }
         });
 
-        services.AddDynamoDbClient(Configuration.GetValue<string>("DynamoDB:Region"));
+        services.AddDynamoDbClient(options => 
+        {
+            options.Region = Configuration.GetValue<string>("DynamoDB:Region");
+            options.LocalStackUri = Configuration.GetValue<string>("DynamoDB:LocalStackUri");
+        });
 
         services.AddScoped<CustomerRepository>();
         services.AddScoped<AccountRepository>();

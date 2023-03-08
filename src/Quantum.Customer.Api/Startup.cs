@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -28,7 +29,11 @@ public class Startup
             options.CustomerTableName = Configuration.GetValue<string>("DynamoDB:Tables:Customers");
         });
 
-        services.AddDynamoDbClient(Configuration.GetValue<string>("DynamoDB:Region"));
+        services.AddDynamoDbClient(options =>
+        {
+            options.Region = Configuration.GetValue<string>("DynamoDB:Region");
+            options.LocalStackUri = Configuration.GetValue<string>("DynamoDB:LocalStackUri");
+        });
 
         services.AddScoped<CustomerRepository>();
         services.AddScoped<CustomerService>();
