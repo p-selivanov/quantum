@@ -1,12 +1,12 @@
 {
   "profiles": {
-    "http": {
+    "Console": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:9002",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
-    },
+    }
   }
 }

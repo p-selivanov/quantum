@@ -13,6 +13,8 @@ docker compose --project-name quantum down
 
 Build commands:
 ```
+docker build . -f ./src/Quantum.Account.Api/Dockerfile -t quantum-account-api:1.0.1
+docker build . -f ./src/Quantum.Account.CustomerConsumer/Dockerfile -t quantum-account-customer-consumer:1.0.1
 docker build . -f ./src/Quantum.Customer.Api/Dockerfile -t quantum-customer-api:1.0.1
 ```
 

@@ -1,20 +1,14 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-FROM mcr.microsoft.com/dotnet/runtime:7.0 AS base
-WORKDIR /app
-
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["src/Quantum.Account.CustomerConsumer/Quantum.Account.CustomerConsumer.csproj", "src/Quantum.Account.CustomerConsumer/"]
-RUN dotnet restore "src/Quantum.Account.CustomerConsumer/Quantum.Account.CustomerConsumer.csproj"
-COPY . .
-WORKDIR "/src/src/Quantum.Account.CustomerConsumer"
-RUN dotnet build "Quantum.Account.CustomerConsumer.csproj" -c Release -o /app/build
+COPY ["src/Quantum.Account.CustomerConsumer/Quantum.Account.CustomerConsumer.csproj", "Quantum.Account.CustomerConsumer/"]
+COPY ["src/Quantum.Lib.Common/Quantum.Lib.Common.csproj", "Quantum.Lib.Common/"]
+COPY ["src/Quantum.Lib.DynamoDb/Quantum.Lib.DynamoDb.csproj", "Quantum.Lib.DynamoDb/"]
+COPY ["src/Quantum.Lib.Kafka/Quantum.Lib.Kafka.csproj", "Quantum.Lib.Kafka/"]
+RUN dotnet restore "Quantum.Account.CustomerConsumer/Quantum.Account.CustomerConsumer.csproj"
+COPY src/ .
+RUN dotnet publish "Quantum.Account.CustomerConsumer/Quantum.Account.CustomerConsumer.csproj" -c Release -o /app /p:UseAppHost=false
 
-FROM build AS publish
-RUN dotnet publish "Quantum.Account.CustomerConsumer.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/runtime:7.0 AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app .
 ENTRYPOINT ["dotnet", "Quantum.Account.CustomerConsumer.dll"]
