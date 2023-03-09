@@ -7,3 +7,4 @@ metadata:
 data:
   Kafka__BootstrapServers: {{ tpl .Values.kafka.bootstrapServers . | quote }}
   DynamoDb__Region: {{ tpl .Values.dynamoDb.region . | quote }}
+  DynamoDb__LocalStackUri: {{ tpl .Values.dynamoDb.localStackUri . | quote }}

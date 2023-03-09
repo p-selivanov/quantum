@@ -2,7 +2,9 @@ helm repo add localstack-repo https://helm.localstack.cloud
 helm upgrade --install localstack localstack-repo/localstack `
   --set service.type=ClusterIP `
   --set service.externalServicePorts.start=4510 `
-  --set service.externalServicePorts.end=4510
+  --set service.externalServicePorts.end=4510 `
+  --set lambdaExecutor=docker `
+  --set mountDind.enabled=true
 
 helm repo add bitnami-repo https://charts.bitnami.com/bitnami
 helm upgrade --install kafka bitnami-repo/kafka `

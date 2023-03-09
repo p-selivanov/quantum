@@ -6,3 +6,4 @@ metadata:
     {{- include "service.labels" . | nindent 4 }}
 data:
   DynamoDb__Region: {{ tpl .Values.dynamoDb.region . | quote }}
+  DynamoDb__LocalStackUri: {{ tpl .Values.dynamoDb.localStackUri . | quote }}
