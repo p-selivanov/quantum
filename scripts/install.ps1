@@ -1,0 +1,5 @@
+& "./install-customer-api.ps1"
+& "./install-customer-stream-consumer-lambda.ps1"
+& "./install-account-api.ps1"
+& "./install-account-customer-consumer.ps1"
+& "./install-ingress.ps1"

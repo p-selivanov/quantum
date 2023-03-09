@@ -1,0 +1,5 @@
+& "./uninstall-customer-api.ps1"
+& "./uninstall-customer-stream-consumer-lambda.ps1"
+& "./uninstall-account-api.ps1"
+& "./uninstall-account-customer-consumer.ps1"
+& "./uninstall-ingress.ps1"

@@ -24,6 +24,8 @@ awslocal dynamodb put-item `
 awslocal dynamodb scan --table-name AccountTransactions
 
 awslocal dynamodb delete-item --table-name AccountTransactions --key 'CustomerId={S="05ffb9a8c6564b59b63682b78c6d6b32"},TransactionId={S="USA"}'
+
+awslocal lambda list-functions --endpoint-url http://192.168.49.2:31566
 ```
 
 ## Kafka
@@ -37,6 +39,10 @@ minikube addons enable ingress
 minikube addons enable metrics-server
 minikube dashboard
 minikube tunnel
+
+minikube start --extra-config=apiserver.service-node-port-range=4566
+
+minikube start --extra-config=apiserver.service-node-port-range=31560-31567 --ports=127.0.0.1:31560-31567:31560-31567
 
 minikube image load quantum-customer-api:1.0.1
 minikube image load quantum-account-api:1.0.1
