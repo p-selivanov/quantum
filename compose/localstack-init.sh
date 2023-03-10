@@ -30,3 +30,18 @@ awslocal lambda create-event-source-mapping \
   --event-source $customerStreamArn \
   --batch-size 1 \
   --starting-position TRIM_HORIZON
+
+awslocal lambda create-function \
+  --function-name account-stream-consumer-lambda \
+  --zip-file fileb://function.zip \
+  --handler Quantum.Account.StreamConsumerLambda::Quantum.Account.StreamConsumerLambda.Function::FunctionHandler \
+  --runtime dotnet6 \
+  --role arn:aws:iam::000000000000:role/lambda-role \
+  --environment "Variables={Kafka__BootstrapServers=kafka:9094}"
+
+accountStreamArn=$(awslocal dynamodb describe-table --table-name AccountTransactions --query 'Table.LatestStreamArn' --output text)
+awslocal lambda create-event-source-mapping \
+  --function-name account-stream-consumer-lambda \
+  --event-source $accountStreamArn \
+  --batch-size 1 \
+  --starting-position TRIM_HORIZON

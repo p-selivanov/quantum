@@ -28,6 +28,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Lib.Kafka", "src\Qu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Account.CustomerConsumer", "src\Quantum.Account.CustomerConsumer\Quantum.Account.CustomerConsumer.csproj", "{300ED601-9DB4-42A1-9784-D3B80CA2376A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Account.StreamConsumerLambda", "src\Quantum.Account.StreamConsumerLambda\Quantum.Account.StreamConsumerLambda.csproj", "{11EFA18F-658C-42E3-B887-E9C73B7944A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{300ED601-9DB4-42A1-9784-D3B80CA2376A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{300ED601-9DB4-42A1-9784-D3B80CA2376A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{300ED601-9DB4-42A1-9784-D3B80CA2376A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11EFA18F-658C-42E3-B887-E9C73B7944A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11EFA18F-658C-42E3-B887-E9C73B7944A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11EFA18F-658C-42E3-B887-E9C73B7944A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11EFA18F-658C-42E3-B887-E9C73B7944A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +85,7 @@ Global
 		{1056C4E2-3ABE-455F-9D64-8CDB21FAB36A} = {150031E8-82EE-427A-BF91-423356A1AD89}
 		{F0C83032-9E75-4624-AA56-2500FF8D34EB} = {150031E8-82EE-427A-BF91-423356A1AD89}
 		{300ED601-9DB4-42A1-9784-D3B80CA2376A} = {150031E8-82EE-427A-BF91-423356A1AD89}
+		{11EFA18F-658C-42E3-B887-E9C73B7944A6} = {150031E8-82EE-427A-BF91-423356A1AD89}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2CC2E628-0071-42D7-83D5-6469BBFB8093}
