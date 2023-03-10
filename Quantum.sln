@@ -9,7 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7E5703C6-C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_solution-items", "_solution-items", "{E2BCA3D5-4F55-473B-935F-AA53890549E8}"
 	ProjectSection(SolutionItems) = preProject
-		compose-infra.yaml = compose-infra.yaml
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -27,7 +26,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Customer.StreamCons
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Lib.Kafka", "src\Quantum.Lib.Kafka\Quantum.Lib.Kafka.csproj", "{F0C83032-9E75-4624-AA56-2500FF8D34EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Account.CustomerConsumer", "src\Quantum.Account.CustomerConsumer\Quantum.Account.CustomerConsumer.csproj", "{300ED601-9DB4-42A1-9784-D3B80CA2376A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Account.CustomerConsumer", "src\Quantum.Account.CustomerConsumer\Quantum.Account.CustomerConsumer.csproj", "{300ED601-9DB4-42A1-9784-D3B80CA2376A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

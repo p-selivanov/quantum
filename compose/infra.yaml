@@ -12,7 +12,12 @@ services:
     ports:
       - 4566:4566
     volumes:
+      - ./localstack-init.sh:/etc/localstack/init/ready.d/localstack-init.sh
       - /var/run/docker.sock:/var/run/docker.sock
+    profiles:
+      - localstack
+      - infra
+      - all
  
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.2
@@ -20,6 +25,10 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+    profiles:
+      - kafka
+      - infra
+      - all 
  
   kafka:
     image: confluentinc/cp-kafka:7.3.2
@@ -35,6 +44,32 @@ services:
       - 9092:9092
     depends_on:
       - zookeeper
+    profiles:
+      - kafka
+      - infra
+      - all
+ 
+  kafka-init:
+    image: confluentinc/cp-kafka:7.3.2
+    container_name: kafka-init
+    entrypoint: [ '/bin/sh', '-c' ]
+    command: |
+      "
+      # blocks until kafka is reachable
+      kafka-topics --bootstrap-server kafka:9094 --list
+
+      echo -e 'Creating kafka topics'
+      kafka-topics --bootstrap-server kafka:9094 --create --if-not-exists --topic customer-events --replication-factor 1 --partitions 1
+
+      echo -e 'Successfully created the following topics:'
+      kafka-topics --bootstrap-server kafka:9094 --list
+      "
+    depends_on:
+      - kafka
+    profiles:
+      - kafka
+      - infra
+      - all
 
   kafka-ui:
     image: provectuslabs/kafka-ui:v0.5.0
@@ -48,6 +83,10 @@ services:
     depends_on:
       - zookeeper
       - kafka
+    profiles:
+      - kafka
+      - infra
+      - all
 
 networks:
   default:

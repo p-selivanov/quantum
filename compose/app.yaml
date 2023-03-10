@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  customer-api:
+    image: quantum-customer-api:1.0.1
+    container_name: customer-api
+    environment:
+      - DynamoDb__Region=localstack
+      - DynamoDb__LocalstackUri=http://localstack:4566
+    ports:
+      - 9001:80
+    depends_on:
+      - localstack
+    profiles:
+      - customer-api
+      - all
+ 
+  account-api:
+    image: quantum-account-api:1.0.1
+    container_name: account-api
+    environment:
+      - DynamoDb__Region=localstack
+      - DynamoDb__LocalstackUri=http://localstack:4566
+    ports:
+      - 9002:80
+    depends_on:
+      - localstack
+    profiles:
+      - account-api
+      - all
+ 
+  account-customer-consumer:
+    image: quantum-account-customer-consumer:1.0.1
+    container_name: account-customer-consumer
+    environment:
+      - DynamoDb__Region=localstack
+      - DynamoDb__LocalstackUri=http://localstack:4566
+      - Kafka__BootstrapServers=kafka:9094
+    depends_on:
+      - localstack
+      - kafka
+    profiles:
+      - account-customer-consumer
+      - all
+
