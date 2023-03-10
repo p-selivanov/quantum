@@ -37,7 +37,7 @@ CD to the `scripts` directory to run the scripts.
 
 1. `./build` - builds all images and lambda functions.
 2. `./up all` - starts all infrastructure and app containers using **docker compose**.
-3. `./install-customer-stream-consumer` - installs the Lambda function into LocalStack.
+3. `./install-lambdas` - installs the Lambda function into LocalStack.
 
 ## TODO
 - Telemetry

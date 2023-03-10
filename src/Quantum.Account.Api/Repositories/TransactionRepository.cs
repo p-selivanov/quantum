@@ -72,10 +72,11 @@ public class TransactionRepository
                                 ["CustomerId"] = AttributeValueFactory.FromString(customerId),
                                 ["TransactionId"] = AttributeValueFactory.FromString($"#{currency}"),
                             },
-                            UpdateExpression = "ADD Balance :amount",
+                            UpdateExpression = "ADD Balance :amount SET UpdatedAt = :timestamp",
                             ExpressionAttributeValues =
                             {
                                 [":amount"] = AttributeValueFactory.FromDecimal(amount),
+                                [":timestamp"] = AttributeValueFactory.FromTimestamp(DateTime.UtcNow),
                             },
                         }
                     },

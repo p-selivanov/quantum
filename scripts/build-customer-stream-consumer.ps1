@@ -4,7 +4,7 @@ dotnet build ../src/Quantum.Customer.StreamConsumerLambda/Quantum.Customer.Strea
   --no-self-contained `
   --output ../src/Quantum.Customer.StreamConsumerLambda/bin/aws
 
-Write-Host "> zip StreamConsumerLambda:"
+Write-Host "> zip Customer.StreamConsumerLambda:"
 Compress-Archive `
   -Path ../src/Quantum.Customer.StreamConsumerLambda/bin/aws/* `
   -DestinationPath ../src/Quantum.Customer.StreamConsumerLambda/bin/function.zip `
