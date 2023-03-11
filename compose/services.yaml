@@ -45,3 +45,17 @@ services:
       - account-customer-consumer
       - all
 
+  account-search-projection:
+    image: quantum-account-search-projection:1.0.1
+    container_name: account-search-projection
+    environment:
+      - AccountSearchDb__ConnectionString="Server=postgres;Port=5432;Userid=postgres;Password=postgres;Database=AccountSearch"
+      - Kafka__BootstrapServers=kafka:9094
+    depends_on:
+      postgres:
+        condition: service_started
+      kafka-init:
+        condition: service_completed_successfully
+    profiles:
+      - account-search-projection
+      - all

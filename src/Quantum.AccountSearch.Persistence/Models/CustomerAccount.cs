@@ -33,4 +33,9 @@ public class CustomerAccount
     //public string Category { get; set; }
 
     //public string[] Tags { get; set; }
+
+    public CustomerAccount Clone()
+    {
+        return (CustomerAccount)MemberwiseClone();
+    }
 }

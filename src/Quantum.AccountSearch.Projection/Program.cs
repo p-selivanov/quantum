@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Quantum.AccountSearch.Persistence;
-using Quantum.AccountSearch.Projection.Repositories;
+using Quantum.AccountSearch.Projection.Consumers;
 using Quantum.Lib.Kafka;
 
 namespace Quantum.AccountSearch.Projection;
@@ -35,10 +35,10 @@ public class Program
             {
                 topicConfig.DegreeOfParallelism = context.Configuration.GetValue<int>("Kafka:DegreeOfParallelism");
                 topicConfig.SkipUnknownMessages = true;
-                topicConfig.AddMessageConsumer<CustomerEventConsumer>();
+                topicConfig.AddMessageConsumer<CustomerCreatedConsumer>();
+                topicConfig.AddMessageConsumer<CustomerUpdatedConsumer>();
+                topicConfig.AddMessageConsumer<AccountBalanceUpdatedConsumer>();
             });
         });
-
-        services.AddScoped<CustomerAccountRepository>();
     }
 }

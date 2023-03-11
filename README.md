@@ -40,6 +40,7 @@ CD to the `scripts` directory to run the scripts.
 3. `./install-lambdas` - installs the Lambda function into LocalStack.
 
 ## TODO
+- Improve projection idempotence. Use Dapper?
 - Telemetry
 - Load Simulation
 - Unique email
