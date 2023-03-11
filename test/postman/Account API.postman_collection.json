@@ -1,0 +1,192 @@
+{
+	"info": {
+		"_postman_id": "a2f04dc8-9a92-467f-9b02-54d7c4fce8ff",
+		"name": "Account API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12916967"
+	},
+	"item": [
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Accounts",
+					"item": [
+						{
+							"name": "Get all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{account_api_uri}}/customers/:customerId/accounts",
+									"host": [
+										"{{account_api_uri}}"
+									],
+									"path": [
+										"customers",
+										":customerId",
+										"accounts"
+									],
+									"variable": [
+										{
+											"key": "customerId",
+											"value": "db8762c9df99414f92e3fbc95f57d506"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by currency",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{account_api_uri}}/customers/:customerId/accounts/usd",
+									"host": [
+										"{{account_api_uri}}"
+									],
+									"path": [
+										"customers",
+										":customerId",
+										"accounts",
+										"usd"
+									],
+									"variable": [
+										{
+											"key": "customerId",
+											"value": "6e991a11c04a4129b537eaad115bd650"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get transactions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{account_api_uri}}/customers/:customerId/accounts/:currency/transactions",
+									"host": [
+										"{{account_api_uri}}"
+									],
+									"path": [
+										"customers",
+										":customerId",
+										"accounts",
+										":currency",
+										"transactions"
+									],
+									"variable": [
+										{
+											"key": "customerId",
+											"value": "83a19701d0354d64ad47ea12dbe82dbc"
+										},
+										{
+											"key": "currency",
+											"value": "usd"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create deposit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currency\": \"EUR\",\r\n    \"amount\": 50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{account_api_uri}}/customers/:customerId/deposit",
+							"host": [
+								"{{account_api_uri}}"
+							],
+							"path": [
+								"customers",
+								":customerId",
+								"deposit"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "48c5e889cde44affa873360d13f686bb"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create withdrawal",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currency\": \"USD\",\r\n    \"amount\": 80\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{account_api_uri}}/customers/:customerId/withdrawal",
+							"host": [
+								"{{account_api_uri}}"
+							],
+							"path": [
+								"customers",
+								":customerId",
+								"withdrawal"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "48c5e889cde44affa873360d13f686bb"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Telemetry",
+			"item": [
+				{
+					"name": "Get health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{account_api_uri}}/health",
+							"host": [
+								"{{account_api_uri}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
