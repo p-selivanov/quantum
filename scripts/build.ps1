@@ -1,6 +1,7 @@
 & "./build-customer-api.ps1"
 & "./build-account-api.ps1"
+& "./build-account-search-api.ps1"
 & "./build-account-customer-consumer.ps1"
+& "./build-account-search-projection.ps1"
 & "./build-customer-stream-consumer.ps1"
 & "./build-account-stream-consumer.ps1"
-& "./build-account-search-projection.ps1"

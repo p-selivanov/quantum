@@ -29,6 +29,33 @@ services:
       - account-api
       - all
  
+  account-search-api:
+    image: quantum-account-search-api:1.0.1
+    container_name: account-search-api
+    environment:
+      - AccountSearchDb__ConnectionString=Server=postgres;Port=5432;Userid=postgres;Password=postgres;Database=AccountSearch
+    ports:
+      - 9003:80
+    depends_on:
+      account-search-api-migrator:
+        condition: service_completed_successfully
+    profiles:
+      - account-search-api
+      - all
+
+  account-search-api-migrator:
+    image: quantum-account-search-api:1.0.1
+    container_name: account-search-api-migrator
+    command: "--migrate=true"
+    environment:
+      - AccountSearchDb__ConnectionString=Server=postgres;Port=5432;Userid=postgres;Password=postgres;Database=AccountSearch
+    depends_on:
+      postgres:
+        condition: service_healthy
+    profiles:
+      - account-search-api
+      - all
+
   account-customer-consumer:
     image: quantum-account-customer-consumer:1.0.1
     container_name: account-customer-consumer
@@ -49,7 +76,7 @@ services:
     image: quantum-account-search-projection:1.0.1
     container_name: account-search-projection
     environment:
-      - AccountSearchDb__ConnectionString="Server=postgres;Port=5432;Userid=postgres;Password=postgres;Database=AccountSearch"
+      - AccountSearchDb__ConnectionString=Server=postgres;Port=5432;Userid=postgres;Password=postgres;Database=AccountSearch
       - Kafka__BootstrapServers=kafka:9094
     depends_on:
       postgres:
