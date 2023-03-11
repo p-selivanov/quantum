@@ -3,3 +3,4 @@
 & "./build-account-customer-consumer.ps1"
 & "./build-customer-stream-consumer.ps1"
 & "./build-account-stream-consumer.ps1"
+& "./build-account-search-projection.ps1"
