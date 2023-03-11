@@ -43,5 +43,8 @@ CD to the `scripts` directory to run the scripts.
 - Telemetry
 - Load Simulation
 - Unique email
+- Customer name edit
 - System.Text.Json
 - Unite models and DTOs?
+- Timestamp prop names
+- Remove `Quantum` prefix from directories and projects?

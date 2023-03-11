@@ -19,6 +19,19 @@ services:
       - infra
       - all
  
+  postgres:
+    image: postgres:13.9-alpine3.17
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres  
+    ports:
+      - 5432:5432
+    profiles:
+      - postgres
+      - infra
+      - all
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.2
     container_name: zookeeper
