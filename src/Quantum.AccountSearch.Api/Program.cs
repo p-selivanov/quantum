@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -5,9 +6,17 @@ namespace Quantum.AccountSearch.Api;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static int Main(string[] args)
     {
-        CreateHostBuilder(args).Build().Run();
+        try
+        {
+            CreateHostBuilder(args).Build().Run();
+        }
+        catch(OperationCanceledException) 
+        {
+        }
+
+        return 0;
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>

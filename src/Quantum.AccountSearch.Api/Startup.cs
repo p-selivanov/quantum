@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Quantum.AccountSearch.Api.Infrastructure;
 using Quantum.AccountSearch.Persistence;
 using Quantum.Lib.Common;
 
@@ -40,6 +41,12 @@ public class Startup
 
     public void Configure(IApplicationBuilder app)
     {
+        if (Configuration.GetValue<bool>("migrate"))
+        {
+            app.RunEfMigrations<AccountSearchDbContext>(true);
+            return;
+        }
+
         app.UseDeveloperExceptionPage();
 
         app.UseRouting();
