@@ -37,8 +37,10 @@ services:
       - DynamoDb__LocalstackUri=http://localstack:4566
       - Kafka__BootstrapServers=kafka:9094
     depends_on:
-      - localstack
-      - kafka
+      localstack:
+        condition: service_started
+      kafka-init:
+        condition: service_completed_successfully
     profiles:
       - account-customer-consumer
       - all
