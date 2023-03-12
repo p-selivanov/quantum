@@ -36,9 +36,14 @@ internal class AccountBalanceUpdatedConsumer : IMessageConsumer<AccountBalanceUp
                 _dbContext.CustomerAccounts.Remove(dbCustomer);
             }
         }
+        else if (dbCustomerAccount.Version >= message.Offset)
+        {
+            return;
+        }
 
         dbCustomerAccount.Balance = message.Value.Balance;
         dbCustomerAccount.BalanceUpdatedAt = message.Timestamp;
+        dbCustomerAccount.Version = message.Offset;
 
         if (message.Value.Balance > 0m &&
             dbCustomerAccount.FirstDepositTimestamp is null)

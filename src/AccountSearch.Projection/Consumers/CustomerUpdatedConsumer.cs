@@ -1,13 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 using Quantum.AccountSearch.Persistence;
 using Quantum.AccountSearch.Persistence.Models;
 using Quantum.AccountSearch.Projection.Events;
+using Quantum.AccountSearch.Projection.Utils;
 using Quantum.Lib.Kafka;
 
 namespace Quantum.AccountSearch.Projection.Consumers;
@@ -23,47 +21,43 @@ internal class CustomerUpdatedConsumer : IMessageConsumer<CustomerUpdated>
 
     public async Task ConsumeAsync(Message<CustomerUpdated> message, CancellationToken cancellationToken = default)
     {
-        Expression<Func<SetPropertyCalls<CustomerAccount>, SetPropertyCalls<CustomerAccount>>> expr = x => x;
-        var @event = message.Value;
-        var hasUpdates = false;
+        var expr = ExecuteUpdateExpression.Empty<CustomerAccount>();
+        var ev = message.Value;
 
-        if (@event.EmailAddress.IsSpecified)
+        if (ev.EmailAddress.IsSpecified)
         {
-            expr = calls => calls.SetProperty(x => x.EmailAddress, @event.EmailAddress.Value);
-            hasUpdates = true;
+            expr = expr.SetPropertyEx(x => x.EmailAddress, ev.EmailAddress.Value);
         }
 
-        if (@event.FirstName.IsSpecified)
+        if (ev.FirstName.IsSpecified)
         {
-            expr = calls => calls.SetProperty(x => x.FirstName, @event.FirstName.Value);
-            hasUpdates = true;
+            expr = expr.SetPropertyEx(x => x.FirstName, ev.FirstName.Value);
         }
 
-        if (@event.LastName.IsSpecified)
+        if (ev.LastName.IsSpecified)
         {
-            expr = calls => calls.SetProperty(x => x.LastName, @event.LastName.Value);
-            hasUpdates = true;
+            expr = expr.SetPropertyEx(x => x.LastName, ev.LastName.Value);
         }
 
-        if (@event.Country.IsSpecified)
+        if (ev.Country.IsSpecified)
         {
-            expr = calls => calls.SetProperty(x => x.Country, @event.Country.Value);
-            hasUpdates = true;
+            expr = expr.SetPropertyEx(x => x.Country, ev.Country.Value);
         }
 
-        if (@event.Status.IsSpecified)
+        if (ev.Status.IsSpecified)
         {
-            expr = calls => calls.SetProperty(x => x.Status, @event.Status.Value);
-            hasUpdates = true;
+            expr = expr.SetPropertyEx(x => x.Status, ev.Status.Value);
         }
 
-        if (hasUpdates is false)
+        if (expr.IsEmpty())
         {
             return;
         }
 
+        expr = expr.SetPropertyEx(x => x.Version, message.Offset);
+
         await _dbContext.CustomerAccounts
-            .Where(x => x.CustomerId == message.Key)
+            .Where(x => x.CustomerId == message.Key && x.Version < message.Offset)
             .ExecuteUpdateAsync(expr);
     }
 }
