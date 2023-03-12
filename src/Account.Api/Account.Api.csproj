@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>Quantum.Account.Api</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

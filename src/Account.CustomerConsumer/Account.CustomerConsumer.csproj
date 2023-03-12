@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>Quantum.Account.CustomerConsumer</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
