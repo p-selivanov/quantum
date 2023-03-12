@@ -13,8 +13,4 @@
     <ProjectReference Include="..\AccountSearch.Persistence\AccountSearch.Persistence.csproj" />
     <ProjectReference Include="..\Lib.Kafka\Lib.Kafka.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Configuration\" />
-  </ItemGroup>
 </Project>

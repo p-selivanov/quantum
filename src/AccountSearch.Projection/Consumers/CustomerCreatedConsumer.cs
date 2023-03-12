@@ -36,6 +36,7 @@ internal class CustomerCreatedConsumer : IMessageConsumer<CustomerCreated>
             Status = message.Value.Status,
             Balance = 0m,
             CustomerCreatedAt = message.Timestamp,
+            Version = message.Offset,
         });
 
         await _dbContext.SaveChangesAsync();

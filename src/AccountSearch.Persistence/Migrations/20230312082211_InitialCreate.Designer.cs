@@ -12,7 +12,7 @@ using Quantum.AccountSearch.Persistence;
 namespace Quantum.AccountSearch.Persistence.Migrations
 {
     [DbContext(typeof(AccountSearchDbContext))]
-    [Migration("20230311104449_InitialCreate")]
+    [Migration("20230312082211_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -31,37 +31,47 @@ namespace Quantum.AccountSearch.Persistence.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Currency")
-                        .HasColumnType("text");
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
 
                     b.Property<decimal>("Balance")
-                        .HasColumnType("numeric");
+                        .HasPrecision(24, 8)
+                        .HasColumnType("numeric(24,8)");
 
                     b.Property<DateTime?>("BalanceUpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Country")
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("CustomerCreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("EmailAddress")
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime?>("FirstDepositTimestamp")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<bool>("HadSuspension")
                         .HasColumnType("boolean");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Status")
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<long>("Version")
+                        .HasColumnType("bigint");
 
                     b.HasKey("CustomerId", "Currency");
 

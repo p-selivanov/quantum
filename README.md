@@ -40,7 +40,6 @@ CD to the `scripts` directory to run the scripts.
 3. `./install-lambdas` - installs the Lambda function into LocalStack.
 
 ## TODO
-- Improve projection idempotence. Use Dapper?
 - Telemetry
 - Load Simulation
 - Unique email
@@ -48,4 +47,3 @@ CD to the `scripts` directory to run the scripts.
 - System.Text.Json
 - Unite models and DTOs?
 - Timestamp prop names
-- Remove `Quantum` prefix from directories and projects?

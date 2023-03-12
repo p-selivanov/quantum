@@ -23,6 +23,6 @@ awslocal dynamodb delete-item --table-name AccountTransactions --key 'CustomerId
 
 ## EF Core Commands
 ```
-dotnet ef migrations add InitialCreate --project ./src/Quantum.AccountSearch.Persistence --startup-project ./src/Quantum.AccountSearch.Api
-dotnet ef database update --startup-project ./src/Quantum.AccountSearch.Api
+dotnet ef migrations add InitialCreate --project ./src/AccountSearch.Persistence --startup-project ./src/AccountSearch.Api
+dotnet ef database update --startup-project ./src/AccountSearch.Api
 ```
