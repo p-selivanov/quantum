@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Quantum.Lib.DynamoDb\Quantum.Lib.DynamoDb.csproj" />
-    <ProjectReference Include="..\Quantum.Lib.Kafka\Quantum.Lib.Kafka.csproj" />
+    <ProjectReference Include="..\Lib.DynamoDb\Lib.DynamoDb.csproj" />
+    <ProjectReference Include="..\Lib.Kafka\Lib.Kafka.csproj" />
   </ItemGroup>
 </Project>

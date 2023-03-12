@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Quantum.AccountSearch.Persistence\Quantum.AccountSearch.Persistence.csproj" />
-    <ProjectReference Include="..\Quantum.Lib.AspNet\Quantum.Lib.AspNet.csproj" />
+    <ProjectReference Include="..\AccountSearch.Persistence\AccountSearch.Persistence.csproj" />
+    <ProjectReference Include="..\Lib.AspNet\Lib.AspNet.csproj" />
   </ItemGroup>
 
 </Project>
