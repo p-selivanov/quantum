@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>Quantum.Customer.Api</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,8 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Quantum.Lib.AspNet\Quantum.Lib.AspNet.csproj" />
-    <ProjectReference Include="..\Quantum.Lib.DynamoDb\Quantum.Lib.DynamoDb.csproj" />
+    <ProjectReference Include="..\Lib.AspNet\Lib.AspNet.csproj" />
+    <ProjectReference Include="..\Lib.DynamoDb\Lib.DynamoDb.csproj" />
   </ItemGroup>
+
 
 </Project>

@@ -12,29 +12,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_solution-items", "_solutio
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Lib.Common", "src\Quantum.Lib.Common\Quantum.Lib.Common.csproj", "{DFB2C96A-ACAB-4555-8A40-04A2B5C5E6ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lib.Common", "src\Lib.Common\Lib.Common.csproj", "{DFB2C96A-ACAB-4555-8A40-04A2B5C5E6ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Customer.Api", "src\Quantum.Customer.Api\Quantum.Customer.Api.csproj", "{508FF090-9AFF-45C3-9872-5D53455A03D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.Api", "src\Customer.Api\Customer.Api.csproj", "{508FF090-9AFF-45C3-9872-5D53455A03D0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Lib.AspNet", "src\Quantum.Lib.AspNet\Quantum.Lib.AspNet.csproj", "{45171DD2-7549-4E88-8DEA-19C33A0D3AE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lib.AspNet", "src\Lib.AspNet\Lib.AspNet.csproj", "{45171DD2-7549-4E88-8DEA-19C33A0D3AE7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Account.Api", "src\Quantum.Account.Api\Quantum.Account.Api.csproj", "{65D93957-A214-42FB-908B-8D5C5223AF00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.Api", "src\Account.Api\Account.Api.csproj", "{65D93957-A214-42FB-908B-8D5C5223AF00}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Lib.DynamoDb", "src\Quantum.Lib.DynamoDb\Quantum.Lib.DynamoDb.csproj", "{43C813C6-C73F-4C93-B0AD-5553CFB23B11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lib.DynamoDb", "src\Lib.DynamoDb\Lib.DynamoDb.csproj", "{43C813C6-C73F-4C93-B0AD-5553CFB23B11}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Customer.StreamConsumerLambda", "src\Quantum.Customer.StreamConsumerLambda\Quantum.Customer.StreamConsumerLambda.csproj", "{1056C4E2-3ABE-455F-9D64-8CDB21FAB36A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.StreamConsumerLambda", "src\Customer.StreamConsumerLambda\Customer.StreamConsumerLambda.csproj", "{1056C4E2-3ABE-455F-9D64-8CDB21FAB36A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Lib.Kafka", "src\Quantum.Lib.Kafka\Quantum.Lib.Kafka.csproj", "{F0C83032-9E75-4624-AA56-2500FF8D34EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lib.Kafka", "src\Lib.Kafka\Lib.Kafka.csproj", "{F0C83032-9E75-4624-AA56-2500FF8D34EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Account.CustomerConsumer", "src\Quantum.Account.CustomerConsumer\Quantum.Account.CustomerConsumer.csproj", "{300ED601-9DB4-42A1-9784-D3B80CA2376A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.CustomerConsumer", "src\Account.CustomerConsumer\Account.CustomerConsumer.csproj", "{300ED601-9DB4-42A1-9784-D3B80CA2376A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.Account.StreamConsumerLambda", "src\Quantum.Account.StreamConsumerLambda\Quantum.Account.StreamConsumerLambda.csproj", "{11EFA18F-658C-42E3-B887-E9C73B7944A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.StreamConsumerLambda", "src\Account.StreamConsumerLambda\Account.StreamConsumerLambda.csproj", "{11EFA18F-658C-42E3-B887-E9C73B7944A6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.AccountSearch.Projection", "src\Quantum.AccountSearch.Projection\Quantum.AccountSearch.Projection.csproj", "{AC9EB4E1-EBCC-4DCD-AEB0-63B004A90A30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountSearch.Projection", "src\AccountSearch.Projection\AccountSearch.Projection.csproj", "{AC9EB4E1-EBCC-4DCD-AEB0-63B004A90A30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.AccountSearch.Persistence", "src\Quantum.AccountSearch.Persistence\Quantum.AccountSearch.Persistence.csproj", "{7542200B-7670-4F95-8159-6F4A0639F903}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountSearch.Persistence", "src\AccountSearch.Persistence\AccountSearch.Persistence.csproj", "{7542200B-7670-4F95-8159-6F4A0639F903}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quantum.AccountSearch.Api", "src\Quantum.AccountSearch.Api\Quantum.AccountSearch.Api.csproj", "{EDF75507-69C1-485F-8FF8-7F423279BC25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountSearch.Api", "src\AccountSearch.Api\AccountSearch.Api.csproj", "{EDF75507-69C1-485F-8FF8-7F423279BC25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,12 +1,12 @@
 Write-Host "> dotnet build Customer.StreamConsumerLambda:"
-dotnet build ../src/Quantum.Customer.StreamConsumerLambda/Quantum.Customer.StreamConsumerLambda.csproj `
+dotnet build ../src/Customer.StreamConsumerLambda/Customer.StreamConsumerLambda.csproj `
   --runtime linux-x64 `
   --no-self-contained `
-  --output ../src/Quantum.Customer.StreamConsumerLambda/bin/aws
+  --output ../src/Customer.StreamConsumerLambda/bin/aws
 
 Write-Host "> zip Customer.StreamConsumerLambda:"
 Compress-Archive `
-  -Path ../src/Quantum.Customer.StreamConsumerLambda/bin/aws/* `
-  -DestinationPath ../src/Quantum.Customer.StreamConsumerLambda/bin/function.zip `
+  -Path ../src/Customer.StreamConsumerLambda/bin/aws/* `
+  -DestinationPath ../src/Customer.StreamConsumerLambda/bin/function.zip `
   -Force
 Write-Host "ok"

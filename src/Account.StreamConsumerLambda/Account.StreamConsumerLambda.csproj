@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Quantum.Account.StreamConsumerLambda</RootNamespace>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <AWSProjectType>Lambda</AWSProjectType>
     <!-- This property makes the build directory similar to a publish directory and helps the AWS .NET Lambda Mock Test Tool find project dependencies. -->
@@ -19,8 +20,8 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\Quantum.Lib.DynamoDb\Quantum.Lib.DynamoDb.csproj" />
-    <ProjectReference Include="..\Quantum.Lib.Kafka\Quantum.Lib.Kafka.csproj" />
+    <ProjectReference Include="..\Lib.DynamoDb\Lib.DynamoDb.csproj" />
+    <ProjectReference Include="..\Lib.Kafka\Lib.Kafka.csproj" />
   </ItemGroup>
   
   <ItemGroup>

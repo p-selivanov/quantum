@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>10.0</LangVersion>
+    <RootNamespace>Quantum.Lib.Kafka</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Quantum.Lib.Common\Quantum.Lib.Common.csproj" />
+    <ProjectReference Include="..\Lib.Common\Lib.Common.csproj" />
   </ItemGroup>
 
 </Project>

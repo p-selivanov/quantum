@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>Quantum.Lib.AspNet</RootNamespace>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -11,7 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-    <ProjectReference Include="..\Quantum.Lib.Common\Quantum.Lib.Common.csproj" />
+    <ProjectReference Include="..\Lib.Common\Lib.Common.csproj" />
   </ItemGroup>
 
 </Project>
