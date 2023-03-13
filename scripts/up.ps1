@@ -13,3 +13,7 @@ $upCommand = "docker compose " +
 "up -d"
 
 iex $upCommand
+
+if ($profiles -eq "all") {
+	& "./install-lambdas.ps1"
+}

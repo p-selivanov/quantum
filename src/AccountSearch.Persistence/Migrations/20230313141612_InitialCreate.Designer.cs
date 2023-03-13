@@ -12,7 +12,7 @@ using Quantum.AccountSearch.Persistence;
 namespace Quantum.AccountSearch.Persistence.Migrations
 {
     [DbContext(typeof(AccountSearchDbContext))]
-    [Migration("20230312082211_InitialCreate")]
+    [Migration("20230313141612_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -23,12 +23,14 @@ namespace Quantum.AccountSearch.Persistence.Migrations
                 .HasAnnotation("ProductVersion", "7.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "citext");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Quantum.AccountSearch.Persistence.Models.CustomerAccount", b =>
                 {
                     b.Property<string>("CustomerId")
-                        .HasColumnType("text");
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)");
 
                     b.Property<string>("Currency")
                         .HasMaxLength(10)
@@ -43,7 +45,7 @@ namespace Quantum.AccountSearch.Persistence.Migrations
 
                     b.Property<string>("Country")
                         .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("citext");
 
                     b.Property<DateTime>("CustomerCreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -57,23 +59,37 @@ namespace Quantum.AccountSearch.Persistence.Migrations
 
                     b.Property<string>("FirstName")
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("citext");
 
                     b.Property<bool>("HadSuspension")
                         .HasColumnType("boolean");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("citext");
 
                     b.Property<string>("Status")
                         .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnType("citext");
 
                     b.Property<long>("Version")
                         .HasColumnType("bigint");
 
                     b.HasKey("CustomerId", "Currency");
+
+                    b.HasIndex("Balance");
+
+                    b.HasIndex("BalanceUpdatedAt");
+
+                    b.HasIndex("Country");
+
+                    b.HasIndex("CustomerCreatedAt");
+
+                    b.HasIndex("EmailAddress");
+
+                    b.HasIndex("FirstName");
+
+                    b.HasIndex("LastName");
 
                     b.ToTable("CustomerAccounts");
                 });

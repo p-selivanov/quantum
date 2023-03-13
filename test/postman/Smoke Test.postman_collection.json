@@ -209,7 +209,7 @@
 			"response": []
 		},
 		{
-			"name": "Wait 1 sec",
+			"name": "-- wait --",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -219,18 +219,46 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 404) {\r",
+							"    setTimeout(function(){}, 5000);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"currency\": \"USD\",\r\n    \"amount\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "{{account_api_uri}}/health",
+					"raw": "{{account_api_uri}}/customers/:customerId/withdrawal",
 					"host": [
 						"{{account_api_uri}}"
 					],
 					"path": [
-						"health"
+						"customers",
+						":customerId",
+						"withdrawal"
+					],
+					"variable": [
+						{
+							"key": "customerId",
+							"value": "{{customerId}}"
+						}
 					]
 				}
 			},
@@ -478,6 +506,45 @@
 						{
 							"key": "customerId",
 							"value": "{{customerId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search accounts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{account_search_api_uri}}/accounts?country=USA&currency=EUR&sort=balance&desc=true&limit=2",
+					"host": [
+						"{{account_search_api_uri}}"
+					],
+					"path": [
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "USA"
+						},
+						{
+							"key": "currency",
+							"value": "EUR"
+						},
+						{
+							"key": "sort",
+							"value": "balance"
+						},
+						{
+							"key": "desc",
+							"value": "true"
+						},
+						{
+							"key": "limit",
+							"value": "2"
 						}
 					]
 				}

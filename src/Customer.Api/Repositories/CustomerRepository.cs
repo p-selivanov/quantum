@@ -61,8 +61,8 @@ public class CustomerRepository
             TableName = _tableName,
             Item =
             {
-                ["Id"] = AttributeValueFactory.FromString(customer.Id),
-                ["EmailAddress"] = AttributeValueFactory.FromString(customer.EmailAddress),
+                ["Id"] = AttributeValueFactory.FromString(customer.Id.ToLower()),
+                ["EmailAddress"] = AttributeValueFactory.FromString(customer.EmailAddress.ToLower()),
                 ["FirstName"] = AttributeValueFactory.FromString(customer.FirstName),
                 ["LastName"] = AttributeValueFactory.FromString(customer.LastName),
                 ["PhoneNumber"] = AttributeValueFactory.FromString(customer.PhoneNumber),
@@ -122,7 +122,7 @@ public class CustomerRepository
                 ExpressionAttributeValues =
                 {
                     [":id"] = AttributeValueFactory.FromString(customerId),
-                    [":emailAddress"] = AttributeValueFactory.FromString(emailAddress),
+                    [":emailAddress"] = AttributeValueFactory.FromString(emailAddress.ToLower()),
                     [":timestamp"] = AttributeValueFactory.FromTimestamp(DateTime.UtcNow),
                 },
             });
