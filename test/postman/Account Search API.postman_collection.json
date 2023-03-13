@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "218cf7f7-a590-4182-b288-6ce0c652c47e",
+		"name": "Account Search API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12916967"
+	},
+	"item": [
+		{
+			"name": "Search all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{account_search_api_uri}}/accounts",
+					"host": [
+						"{{account_search_api_uri}}"
+					],
+					"path": [
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{account_search_api_uri}}/accounts?name=h&minbalance=7.0098",
+					"host": [
+						"{{account_search_api_uri}}"
+					],
+					"path": [
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "h"
+						},
+						{
+							"key": "minbalance",
+							"value": "7.0098"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search by country",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{account_search_api_uri}}/accounts?country=Poland&currency=EUR",
+					"host": [
+						"{{account_search_api_uri}}"
+					],
+					"path": [
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "Poland"
+						},
+						{
+							"key": "currency",
+							"value": "EUR"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search & sort",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{account_search_api_uri}}/accounts?currency=USD&sort=balance&desc=true",
+					"host": [
+						"{{account_search_api_uri}}"
+					],
+					"path": [
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "currency",
+							"value": "USD"
+						},
+						{
+							"key": "sort",
+							"value": "balance"
+						},
+						{
+							"key": "desc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search & limit",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{account_search_api_uri}}/accounts?offset=10&limit=2",
+					"host": [
+						"{{account_search_api_uri}}"
+					],
+					"path": [
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "10"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
