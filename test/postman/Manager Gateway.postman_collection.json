@@ -1,0 +1,224 @@
+{
+	"info": {
+		"_postman_id": "3430c41e-66e5-4e5b-8987-4b34ca5a8d8c",
+		"name": "Manager Gateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12916967"
+	},
+	"item": [
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "Accounts",
+					"item": [
+						{
+							"name": "Get all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{manager_gateway_uri}}/api/customers/:customerId/accounts",
+									"host": [
+										"{{manager_gateway_uri}}"
+									],
+									"path": [
+										"api",
+										"customers",
+										":customerId",
+										"accounts"
+									],
+									"variable": [
+										{
+											"key": "customerId",
+											"value": "2eac7d74c54041ffbc19522247e6b143"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by currency",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{manager_gateway_uri}}/api/customers/:customerId/accounts/usd",
+									"host": [
+										"{{manager_gateway_uri}}"
+									],
+									"path": [
+										"api",
+										"customers",
+										":customerId",
+										"accounts",
+										"usd"
+									],
+									"variable": [
+										{
+											"key": "customerId",
+											"value": "2eac7d74c54041ffbc19522247e6b143"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get transactions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{manager_gateway_uri}}/api/customers/:customerId/accounts/:currency/transactions",
+									"host": [
+										"{{manager_gateway_uri}}"
+									],
+									"path": [
+										"api",
+										"customers",
+										":customerId",
+										"accounts",
+										":currency",
+										"transactions"
+									],
+									"variable": [
+										{
+											"key": "customerId",
+											"value": "2eac7d74c54041ffbc19522247e6b143"
+										},
+										{
+											"key": "currency",
+											"value": "usd"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{manager_gateway_uri}}/api/customers/:customerId",
+							"host": [
+								"{{manager_gateway_uri}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "2eac7d74c54041ffbc19522247e6b143"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailAddress\": \"w.kurtz@mail.dev\",\r\n    \"firstName\": \"Walter\",\r\n    \"lastName\": \"Kurtz\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{manager_gateway_uri}}/api/customers",
+							"host": [
+								"{{manager_gateway_uri}}"
+							],
+							"path": [
+								"api",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"country\": \"Germany\",\r\n    \"phoneNumber\": \"+5412345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{manager_gateway_uri}}/api/customers/:customerId",
+							"host": [
+								"{{manager_gateway_uri}}"
+							],
+							"path": [
+								"api",
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "2eac7d74c54041ffbc19522247e6b143"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Accounts",
+			"item": [
+				{
+					"name": "Search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{manager_gateway_uri}}/api/accounts?name=Mattie&minbalance=1",
+							"host": [
+								"{{manager_gateway_uri}}"
+							],
+							"path": [
+								"api",
+								"accounts"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Mattie"
+								},
+								{
+									"key": "minbalance",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
