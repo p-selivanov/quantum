@@ -40,14 +40,14 @@ http:
     customer-api:
       loadBalancer:
         servers:
-        - url: http://customer-api/
+        - url: {{ env "CUSTOMER_API_URI" }}
     
     account-api:
       loadBalancer:
         servers:
-        - url: http://account-api/
+        - url: {{ env "ACCOUNT_API_URI" }}
 
     account-search-api:
       loadBalancer:
         servers:
-        - url: http://account-search-api/
+        - url: {{ env "ACCOUNT_SEARCH_API_URI" }}
