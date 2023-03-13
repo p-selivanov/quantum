@@ -7,7 +7,6 @@ services:
     environment:
       - DynamoDb__Region=localstack
       - DynamoDb__LocalstackUri=http://localstack:4566
-      - Logging__LogLevel__Microsoft.AspNetCore=Information
     ports:
       - 9001:80
     depends_on:

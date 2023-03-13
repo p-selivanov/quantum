@@ -36,7 +36,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountSearch.Persistence",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountSearch.Api", "src\AccountSearch.Api\AccountSearch.Api.csproj", "{EDF75507-69C1-485F-8FF8-7F423279BC25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagerGateway", "src\ManagerGateway\ManagerGateway.csproj", "{CEC82552-405F-4398-8A7F-5BB719F615D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManagerGateway", "src\ManagerGateway\ManagerGateway.csproj", "{CEC82552-405F-4398-8A7F-5BB719F615D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerGateway", "src\CustomerGateway\CustomerGateway.csproj", "{9B20116A-A5F4-4588-B752-1071A077B4C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,6 +98,10 @@ Global
 		{CEC82552-405F-4398-8A7F-5BB719F615D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEC82552-405F-4398-8A7F-5BB719F615D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEC82552-405F-4398-8A7F-5BB719F615D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B20116A-A5F4-4588-B752-1071A077B4C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B20116A-A5F4-4588-B752-1071A077B4C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B20116A-A5F4-4588-B752-1071A077B4C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B20116A-A5F4-4588-B752-1071A077B4C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,6 +120,7 @@ Global
 		{7542200B-7670-4F95-8159-6F4A0639F903} = {150031E8-82EE-427A-BF91-423356A1AD89}
 		{EDF75507-69C1-485F-8FF8-7F423279BC25} = {150031E8-82EE-427A-BF91-423356A1AD89}
 		{CEC82552-405F-4398-8A7F-5BB719F615D0} = {150031E8-82EE-427A-BF91-423356A1AD89}
+		{9B20116A-A5F4-4588-B752-1071A077B4C0} = {150031E8-82EE-427A-BF91-423356A1AD89}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2CC2E628-0071-42D7-83D5-6469BBFB8093}
