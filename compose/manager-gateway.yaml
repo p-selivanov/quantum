@@ -1,0 +1,53 @@
+http:
+  routers:
+    customer-api:
+      entryPoints: web
+      service: customer-api
+      rule: >
+        Path(
+          `/api/customers`,
+          `/api/customers/{customerId:.+}`) && 
+        Method(`GET`, `POST`, `PATCH`)
+      middlewares: strip-prefix-api
+
+    account-api:
+      entryPoints: web
+      service: account-api
+      rule: >
+        Path(
+          `/api/customers/{customerId:.+}/accounts`,
+          `/api/customers/{customerId:.+}/accounts/{currency:.+}`,
+          `/api/customers/{customerId:.+}/accounts/{currency:.+}/transactions`) && 
+        Method(`GET`)
+      middlewares: strip-prefix-api
+
+    account-search-api:
+      entryPoints: web
+      service: account-search-api
+      rule: >
+        Path(
+          `/api/accounts`) &&
+        Method(`GET`)
+      middlewares: strip-prefix-api
+
+  middlewares:
+    strip-prefix-api:
+      stripprefix:
+        prefixes:
+        - /api
+
+  services:
+    customer-api:
+      loadBalancer:
+        servers:
+        - url: http://customer-api/
+    
+    account-api:
+      loadBalancer:
+        servers:
+        - url: http://account-api/
+
+    account-search-api:
+      loadBalancer:
+        servers:
+        - url: http://account-search-api/

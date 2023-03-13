@@ -7,6 +7,7 @@ services:
     environment:
       - DynamoDb__Region=localstack
       - DynamoDb__LocalstackUri=http://localstack:4566
+      - Logging__LogLevel__Microsoft.AspNetCore=Information
     ports:
       - 9001:80
     depends_on:
@@ -86,3 +87,21 @@ services:
     profiles:
       - account-search-projection
       - all
+
+  manager-gateway:
+    image: traefik:v2.9
+    container_name: manager-gateway
+    environment:
+      - TRAEFIK_PROVIDERS_FILE=true
+      - TRAEFIK_PROVIDERS_FILE_DIRECTORY=/etc/traefik/
+      - TRAEFIK_ENTRYPOINTS_WEB_ADDRESS=:80
+      - TRAEFIK_API_INSECURE=true
+      - TRAEFIK_LOG_LEVEL=INFO
+    ports:
+      - 9012:80
+      - 9022:8080
+    volumes:
+      - ./manager-gateway.yaml:/etc/traefik/manager-gateway.yaml
+    profiles:
+      - all
+      - manager-gateway
