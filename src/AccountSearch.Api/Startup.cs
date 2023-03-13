@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Quantum.AccountSearch.Api.Infrastructure;
+using Quantum.AccountSearch.Api.Repositories;
 using Quantum.AccountSearch.Persistence;
 using Quantum.Lib.Common;
 
@@ -24,6 +25,8 @@ public class Startup
     {
         services.AddDbContext<AccountSearchDbContext>(options =>
             options.UseNpgsql(Configuration.GetValue<string>("AccountSearchDb:ConnectionString")));
+
+        services.AddScoped<CustomerAccountRepository>();
 
         services
             .AddControllers()

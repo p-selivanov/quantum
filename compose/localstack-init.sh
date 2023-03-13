@@ -19,7 +19,7 @@ zip function.zip function.txt
 awslocal lambda create-function \
   --function-name customer-stream-consumer-lambda \
   --zip-file fileb://function.zip \
-  --handler Quantum.Customer.StreamConsumerLambda::Quantum.Customer.StreamConsumerLambda.Function::FunctionHandler \
+  --handler Customer.StreamConsumerLambda::Quantum.Customer.StreamConsumerLambda.Function::FunctionHandler \
   --runtime dotnet6 \
   --role arn:aws:iam::000000000000:role/lambda-role \
   --environment "Variables={Kafka__BootstrapServers=kafka:9094}"
@@ -34,7 +34,7 @@ awslocal lambda create-event-source-mapping \
 awslocal lambda create-function \
   --function-name account-stream-consumer-lambda \
   --zip-file fileb://function.zip \
-  --handler Quantum.Account.StreamConsumerLambda::Quantum.Account.StreamConsumerLambda.Function::FunctionHandler \
+  --handler Account.StreamConsumerLambda::Quantum.Account.StreamConsumerLambda.Function::FunctionHandler \
   --runtime dotnet6 \
   --role arn:aws:iam::000000000000:role/lambda-role \
   --environment "Variables={Kafka__BootstrapServers=kafka:9094}"
