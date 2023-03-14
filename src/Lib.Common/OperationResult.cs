@@ -48,7 +48,7 @@ public class OperationResult<T> : OperationResult
     }
 
     public OperationResult(string errorMessage, string errorCode = null) 
-        :base(errorCode, errorMessage)
+        :base(errorMessage, errorCode)
     {
     }
 

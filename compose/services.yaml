@@ -7,7 +7,6 @@ services:
     environment:
       - DynamoDb__Region=localstack
       - DynamoDb__LocalstackUri=http://localstack:4566
-      - Logging__LogLevel__Microsoft.AspNetCore=Information
     ports:
       - 9001:80
     depends_on:
@@ -88,6 +87,18 @@ services:
       - account-search-projection
       - all
 
+  customer-gateway:
+    image: quantum-customer-gateway:1.0.1
+    container_name: customer-gateway
+    environment:
+      - CustomerApiUri=http://customer-api/
+      - AccountApiUri=http://account-api/
+    ports:
+      - 9011:80
+    profiles:
+      - all
+      - customer-gateway
+
   manager-gateway:
     image: quantum-manager-gateway:1.0.1
     container_name: manager-gateway
@@ -101,4 +112,3 @@ services:
     profiles:
       - all
       - manager-gateway
-

@@ -46,7 +46,7 @@ public class CustomerAccountController : ControllerBase
         return Ok(transactions);
     }
 
-    [HttpPost("{customerId}/deposit")]
+    [HttpPost("{customerId}/deposits")]
     public async Task<ActionResult<DepositCreateResult>> Deposit(string customerId, DepositCreateRequest request)
     {
         var result = await _accountService.DepositAsync(customerId, request.Currency, request.Amount);
@@ -58,7 +58,7 @@ public class CustomerAccountController : ControllerBase
         return Ok(result.Value);
     }
 
-    [HttpPost("{customerId}/withdrawal")]
+    [HttpPost("{customerId}/withdrawals")]
     public async Task<ActionResult<WithdrawalCreateResult>> Withdraw(string customerId, WithdrawalCreateRequest request)
     {
         var result = await _accountService.WithdrawAsync(customerId, request.Currency, request.Amount);

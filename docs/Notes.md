@@ -1,1 +1,6 @@
-- Kafka consume review
+- Local init approach: Kafka, EF Migration, Lamdas
+- Kafka - reviewed consumer contract
+- Idempotent consume
+- EF 7 ExecuteUpdate utils
+- Simple gateway with Traefik
+- Gateway with YARP

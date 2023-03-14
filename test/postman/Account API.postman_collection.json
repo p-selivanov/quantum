@@ -103,7 +103,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"currency\": \"EUR\",\r\n    \"amount\": 50\r\n}",
+							"raw": "{\r\n    \"currency\": \"USD\",\r\n    \"amount\": 50\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -111,19 +111,19 @@
 							}
 						},
 						"url": {
-							"raw": "{{account_api_uri}}/customers/:customerId/deposit",
+							"raw": "{{account_api_uri}}/customers/:customerId/deposits",
 							"host": [
 								"{{account_api_uri}}"
 							],
 							"path": [
 								"customers",
 								":customerId",
-								"deposit"
+								"deposits"
 							],
 							"variable": [
 								{
 									"key": "customerId",
-									"value": "48c5e889cde44affa873360d13f686bb"
+									"value": "a96c5a51634648cca424f86354dff816"
 								}
 							]
 						}
@@ -145,14 +145,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{account_api_uri}}/customers/:customerId/withdrawal",
+							"raw": "{{account_api_uri}}/customers/:customerId/withdrawals",
 							"host": [
 								"{{account_api_uri}}"
 							],
 							"path": [
 								"customers",
 								":customerId",
-								"withdrawal"
+								"withdrawals"
 							],
 							"variable": [
 								{

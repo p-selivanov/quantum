@@ -279,14 +279,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{account_api_uri}}/customers/:customerId/deposit",
+					"raw": "{{account_api_uri}}/customers/:customerId/deposits",
 					"host": [
 						"{{account_api_uri}}"
 					],
 					"path": [
 						"customers",
 						":customerId",
-						"deposit"
+						"deposits"
 					],
 					"variable": [
 						{
@@ -313,14 +313,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{account_api_uri}}/customers/:customerId/deposit",
+					"raw": "{{account_api_uri}}/customers/:customerId/deposits",
 					"host": [
 						"{{account_api_uri}}"
 					],
 					"path": [
 						"customers",
 						":customerId",
-						"deposit"
+						"deposits"
 					],
 					"variable": [
 						{
@@ -347,14 +347,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{account_api_uri}}/customers/:customerId/deposit",
+					"raw": "{{account_api_uri}}/customers/:customerId/deposits",
 					"host": [
 						"{{account_api_uri}}"
 					],
 					"path": [
 						"customers",
 						":customerId",
-						"deposit"
+						"deposits"
 					],
 					"variable": [
 						{
@@ -381,14 +381,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{account_api_uri}}/customers/:customerId/withdrawal",
+					"raw": "{{account_api_uri}}/customers/:customerId/withdrawals",
 					"host": [
 						"{{account_api_uri}}"
 					],
 					"path": [
 						"customers",
 						":customerId",
-						"withdrawal"
+						"withdrawals"
 					],
 					"variable": [
 						{
@@ -415,14 +415,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{account_api_uri}}/customers/:customerId/withdrawal",
+					"raw": "{{account_api_uri}}/customers/:customerId/withdrawals",
 					"host": [
 						"{{account_api_uri}}"
 					],
 					"path": [
 						"customers",
 						":customerId",
-						"withdrawal"
+						"withdrawals"
 					],
 					"variable": [
 						{

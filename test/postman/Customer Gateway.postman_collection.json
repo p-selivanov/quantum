@@ -1,0 +1,346 @@
+{
+	"info": {
+		"_postman_id": "b510efb4-059b-44d1-9b5c-fb4500586a44",
+		"name": "Customer Gateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12916967"
+	},
+	"item": [
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailAddress\": \"w.kurtz@mail.dev\",\r\n    \"firstName\": \"Walter\",\r\n    \"lastName\": \"Kurtz\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{customer_gateway_uri}}/api/profile",
+							"host": [
+								"{{customer_gateway_uri}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get my profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{customer_gateway_uri}}/api/profile",
+							"host": [
+								"{{customer_gateway_uri}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update email address",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailAddress\": \"walter.kurtz.@mail.dev\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{customer_gateway_uri}}/api/profile",
+							"host": [
+								"{{customer_gateway_uri}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update name",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Walt\",\r\n    \"lastName\": \"Kurth\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{customer_gateway_uri}}/api/profile",
+							"host": [
+								"{{customer_gateway_uri}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update country",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"country\": \"Poland\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{customer_gateway_uri}}/api/profile",
+							"host": [
+								"{{customer_gateway_uri}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update phone number",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phoneNumber\": \"+1012345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{customer_gateway_uri}}/api/profile",
+							"host": [
+								"{{customer_gateway_uri}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Accounts",
+			"item": [
+				{
+					"name": "Get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{customer_gateway_uri}}/api/accounts",
+							"host": [
+								"{{customer_gateway_uri}}"
+							],
+							"path": [
+								"api",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by currency",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{customer_gateway_uri}}/api/accounts/:currency",
+							"host": [
+								"{{customer_gateway_uri}}"
+							],
+							"path": [
+								"api",
+								"accounts",
+								":currency"
+							],
+							"variable": [
+								{
+									"key": "currency",
+									"value": "USD"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{customer_gateway_uri}}/api/accounts/:currency/transactions",
+							"host": [
+								"{{customer_gateway_uri}}"
+							],
+							"path": [
+								"api",
+								"accounts",
+								":currency",
+								"transactions"
+							],
+							"variable": [
+								{
+									"key": "currency",
+									"value": "USD"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create deposit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"currency\": \"USD\",\r\n    \"amount\": 50\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{customer_gateway_uri}}/api/deposits",
+					"host": [
+						"{{customer_gateway_uri}}"
+					],
+					"path": [
+						"api",
+						"deposits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create withdrawal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"currency\": \"USD\",\r\n    \"amount\": 80\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{customer_gateway_uri}}/api/withdrawals",
+					"host": [
+						"{{customer_gateway_uri}}"
+					],
+					"path": [
+						"api",
+						"withdrawals"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "Token#{{customerId}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			},
+			{
+				"key": "in",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "customerId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
