@@ -5,4 +5,5 @@
 & "./build-account-search-projection.ps1"
 & "./build-customer-stream-consumer.ps1"
 & "./build-account-stream-consumer.ps1"
+& "./build-customer-gateway.ps1"
 & "./build-manager-gateway.ps1"

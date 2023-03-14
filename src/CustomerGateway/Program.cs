@@ -1,3 +1,4 @@
+using CustomerGateway.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,20 +10,28 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddHttpForwarder();
+        builder.Services.AddAuthentication()
+            .AddScheme<FakeTokenAuthOptions, FakeTokenAuthHandler>("FakeToken", null);
+
+        builder.Services.AddAuthorization(options =>
+        {
+            options.AddPolicy("ValidToken", policy =>
+                policy.RequireAuthenticatedUser());
+        });
+
+        var reverseProxyConfig = new ReverseProxyConfig(builder.Configuration);
 
         builder.Services.AddReverseProxy()
-            .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
-
-        builder.Services.AddControllers();
+            .LoadFromMemory(reverseProxyConfig.GetRoutes(), reverseProxyConfig.GetClusters());
 
         var app = builder.Build();
 
-        app.MapReverseProxy();
+        app.UseRouting();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
-        app.MapControllers();
+        app.MapReverseProxy();
 
         app.Run();
     }
