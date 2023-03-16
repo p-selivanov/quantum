@@ -6,7 +6,7 @@ COPY ["src/Lib.Common/Lib.Common.csproj", "Lib.Common/"]
 COPY ["src/Lib.DynamoDb/Lib.DynamoDb.csproj", "Lib.DynamoDb/"]
 RUN dotnet restore "Account.Api/Account.Api.csproj"
 COPY src/ .
-RUN dotnet publish "Account.Api/Account.Api.csproj" -c Release -o /app /p:UseAppHost=false
+RUN dotnet publish "Account.Api/Account.Api.csproj" -c Release -r linux-x64 --no-self-contained -o /app
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
 WORKDIR /app
